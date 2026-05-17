@@ -6,6 +6,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,40 +16,33 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "usta_payments")
+@Table(name = "usta_menus")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentEntity {
+public class MenuEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "usta_paym_id")
+    @Column(name = "usta_menu_id")
     private Long id;
 
-    @Column(name = "usta_paym_date", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "usta_menu_cafeteria_id", nullable = false)
+    private CafeteriaEntity cafeteria;
+
+    @Column(name = "usta_menu_date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "usta_paym_value", nullable = false)
-    private BigDecimal value;
-
-    @Column(name = "usta_paym_status", nullable = false)
-    private String status;
-
-    @Column(name = "usta_paym_type", nullable = false)
-    private String method;
-
     @Builder.Default
-    @OneToMany(mappedBy = "payment", fetch = FetchType.LAZY)
-    private Set<OrderEntity> orders = new HashSet<>();
-
+    @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
+    private Set<MenuDayEntity> menuDays = new HashSet<>();
 
 }
