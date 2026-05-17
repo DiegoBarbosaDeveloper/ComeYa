@@ -1,9 +1,6 @@
 package co.edu.ustavillavicencio.comeya.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 @Entity
@@ -19,4 +16,15 @@ public class StaffcafeteriaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private UsersEntity usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "cafeteria_id", nullable = false)
+    private CafeteriaEntity cafeteria;
+    @Column(name = "cargo")
+    private String cargo;
+    @Column(name = "activo")
+    private boolean activo;
 }
