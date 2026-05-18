@@ -1,3 +1,34 @@
 spring:
   application:
     name: comeya
+  datasource:
+    url: jdbc:postgresql://localhost:5432/comeya
+    username: admin
+    password: S3cret
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        '[format_sql]': true
+
+        
+  jackson:
+    time-zone: UTC
+    default-property-inclusion: non_null
+
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+jwt:
+  secret: ${JWT_SECRET:Q29tZXlhU2VjdXJlS2V5QmFzZTY0Q29tZXlhU2VjdXJlS2V5}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
