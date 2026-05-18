@@ -1,5 +1,6 @@
 package co.edu.ustavillavicencio.comeya.controller;
 
+import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderRequest;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderResponse;
 import co.edu.ustavillavicencio.comeya.service.OrderService;
@@ -29,7 +30,7 @@ public class OrderController {
     }
 
     @GetMapping("/cafeteria/{cafeteriaId}")
-    public ResponseEntity<Page<OrderResponse>> listByCafeteria(@PathVariable Long cafeteriaId, Pageable pageable) {
-        return ResponseEntity.ok(orderService.listByCafeteria(cafeteriaId, pageable));
+    public ResponseEntity<ApiResponse<Page<OrderResponse>>> listByCafeteria(@PathVariable Long cafeteriaId, Pageable pageable) {
+        return ResponseEntity.ok(ApiResponse.success("created", orderService.listByCafeteria(cafeteriaId, pageable)));
     }
 }
