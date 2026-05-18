@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +20,18 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<OrderResponse> create(@Valid @RequestBody OrderRequest req, Authentication auth) {
+    public ResponseEntity<ApiResponse<OrderResponse>> create(@Valid @RequestBody OrderRequest req, Authentication auth) {
         String username = auth.getName();
-        return ResponseEntity.ok(orderService.create(req, username));
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.CREATED.name(), orderService.create(req, username)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderResponse> get(@PathVariable Long id) {
-        return ResponseEntity.ok(orderService.getById(id));
+    public ResponseEntity<ApiResponse<OrderResponse>> get(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), orderService.getById(id)));
     }
 
     @GetMapping("/cafeteria/{cafeteriaId}")
     public ResponseEntity<ApiResponse<Page<OrderResponse>>> listByCafeteria(@PathVariable Long cafeteriaId, Pageable pageable) {
-        return ResponseEntity.ok(ApiResponse.success("created", orderService.listByCafeteria(cafeteriaId, pageable)));
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), orderService.listByCafeteria(cafeteriaId, pageable)));
     }
 }

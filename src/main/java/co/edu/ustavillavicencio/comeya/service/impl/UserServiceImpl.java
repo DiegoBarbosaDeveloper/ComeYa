@@ -4,17 +4,19 @@ import co.edu.ustavillavicencio.comeya.dto.user.UserRequest;
 import co.edu.ustavillavicencio.comeya.dto.user.UserResponse;
 import co.edu.ustavillavicencio.comeya.exception.BusinessRuleException;
 import co.edu.ustavillavicencio.comeya.mapper.UserMapper;
+import co.edu.ustavillavicencio.comeya.model.entity.UserEntity;
 import co.edu.ustavillavicencio.comeya.model.enums.UserRole;
 import co.edu.ustavillavicencio.comeya.repository.UserRepository;
+import co.edu.ustavillavicencio.comeya.security.CustomUserDetailsService;
 import co.edu.ustavillavicencio.comeya.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.core.Authentication;
 import java.time.OffsetDateTime;
 import java.util.stream.Collectors;
 
@@ -50,5 +52,24 @@ public class UserServiceImpl implements UserService {
     public Page<UserResponse> list(Pageable pageable) {
         Page<co.edu.ustavillavicencio.comeya.model.entity.UserEntity> p = userRepository.findAll(pageable);
         return new PageImpl<>(p.getContent().stream().map(mapper::toResponse).collect(Collectors.toList()), pageable, p.getTotalElements());
+    }
+
+    @Override
+    public UserResponse me(Authentication authentication) {
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        assert userDetails != null;
+        UserEntity user = userRepository
+                .findByUsername(userDetails.getUsername())
+                .orElseThrow(() ->
+                        new RuntimeException("User Not Found")
+                );
+
+        return UserResponse.builder()
+                .id(user.getId())
+                .username(user.getName())
+                .email(user.getEmail())
+                .build();
     }
 }
