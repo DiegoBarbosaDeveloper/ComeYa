@@ -7,7 +7,6 @@ import co.edu.ustavillavicencio.comeya.mapper.UserMapper;
 import co.edu.ustavillavicencio.comeya.model.entity.UserEntity;
 import co.edu.ustavillavicencio.comeya.model.enums.UserRole;
 import co.edu.ustavillavicencio.comeya.repository.UserRepository;
-import co.edu.ustavillavicencio.comeya.security.CustomUserDetailsService;
 import co.edu.ustavillavicencio.comeya.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

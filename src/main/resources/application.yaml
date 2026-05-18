@@ -2,9 +2,7 @@ spring:
   application:
     name: comeya
   datasource:
-    url: jdbc:postgresql://aws-1-us-east-2.pooler.supabase.com:6543/postgres?user=postgres.mgwwjmcwsvibvvjfcwgd&password=Compagphilips0
-    username: admin
-    password: S3cret
+    url: ${DATABASE_URL:jdbc:postgresql://aws-1-us-east-2.pooler.supabase.com:6543/postgres?user=postgres.mgwwjmcwsvibvvjfcwgd&password=Compagphilips0}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -30,5 +28,5 @@ springdoc:
     path: /swagger-ui.html
 
 jwt:
-  secret: ${JWT_SECRET:Q29tZXlhU2VjdXJlS2V5QmFzZTY0Q29tZXlhU2VjdXJlS2V5}
-  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+  secret: ${JWT_SECRET}
+  expiration-ms: ${JWT_EXPIRATION_MS}
