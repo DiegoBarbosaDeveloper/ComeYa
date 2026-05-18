@@ -1,10 +1,15 @@
 package co.edu.ustavillavicencio.comeya.controller;
 
+import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
+import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaRequest;
+import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaResponse;
 import co.edu.ustavillavicencio.comeya.dto.payment.PaymentRequest;
 import co.edu.ustavillavicencio.comeya.dto.payment.PaymentResponse;
 import co.edu.ustavillavicencio.comeya.service.PaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +20,7 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping
-    public ResponseEntity<PaymentResponse> create(@Valid @RequestBody PaymentRequest req) {
-        return ResponseEntity.ok(paymentService.create(req));
+    public ResponseEntity<ApiResponse <PaymentResponse>> create(@Valid @RequestBody PaymentRequest req) {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.CREATED.name(), paymentService.create(req)));
     }
 }
