@@ -29,8 +29,8 @@ public class CafeteriaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CafeteriaResponse> get(@PathVariable Long id) {
-        return ResponseEntity.ok(cafeteriaService.getById(id));
+    public ResponseEntity<ApiResponse<CafeteriaResponse>> get(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), cafeteriaService.getById(id)));
     }
 
     @GetMapping("{name}")

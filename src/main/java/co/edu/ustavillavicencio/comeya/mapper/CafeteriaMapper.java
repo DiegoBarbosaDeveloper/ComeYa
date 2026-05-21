@@ -15,8 +15,7 @@ public interface CafeteriaMapper {
     @Mapping(target = "menus", ignore = true)
     @Mapping(target = "staffMembers", ignore = true)
     CafeteriaEntity toEntity(CafeteriaRequest req);
-    
-    @Mapping(target = "address", ignore = true)
+
     @Mapping(target = "createdAt", ignore = true)
     CafeteriaResponse toResponse(CafeteriaEntity res);
 }

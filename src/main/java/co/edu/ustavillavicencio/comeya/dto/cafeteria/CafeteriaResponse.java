@@ -13,5 +13,6 @@ public class CafeteriaResponse {
     private Long id;
     private String name;
     private boolean open;
+    private boolean servesFood;
     private OffsetDateTime createdAt;
 }

@@ -2,7 +2,7 @@ spring:
   application:
     name: comeya
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://aws-1-us-east-2.pooler.supabase.com:6543/postgres?user=postgres.mgwwjmcwsvibvvjfcwgd&password=Compagphilips0}
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -13,7 +13,7 @@ spring:
       hibernate:
         '[format_sql]': true
 
-        
+
   jackson:
     time-zone: UTC
     default-property-inclusion: non_null
@@ -30,3 +30,5 @@ springdoc:
 jwt:
   secret: ${JWT_SECRET}
   expiration-ms: ${JWT_EXPIRATION_MS}
+
+kind: Application

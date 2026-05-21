@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +40,9 @@ public class CafeteriaEntity {
 
     @Column(name = "usta_cafe_serves_food", nullable = false)
     private boolean servesFood;
+
+    @Column(name = "usta_cafe_created_at", nullable = false)
+    private OffsetDateTime createdAt;
 
     @Builder.Default
     @OneToMany(mappedBy = "cafeteria", fetch = FetchType.LAZY)
