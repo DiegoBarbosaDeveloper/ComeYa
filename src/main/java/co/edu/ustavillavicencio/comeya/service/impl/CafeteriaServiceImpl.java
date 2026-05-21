@@ -2,6 +2,7 @@ package co.edu.ustavillavicencio.comeya.service.impl;
 
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaRequest;
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaResponse;
+import co.edu.ustavillavicencio.comeya.exception.NotFoundException;
 import co.edu.ustavillavicencio.comeya.mapper.CafeteriaMapper;
 import co.edu.ustavillavicencio.comeya.repository.CafeteriaRepository;
 import co.edu.ustavillavicencio.comeya.service.CafeteriaService;
@@ -35,5 +36,13 @@ public class CafeteriaServiceImpl implements CafeteriaService {
     public Page<CafeteriaResponse> search(String q, Pageable pageable) {
         Page<co.edu.ustavillavicencio.comeya.model.entity.CafeteriaEntity> p = cafeteriaRepository.findAll(pageable);
         return new PageImpl<>(p.getContent().stream().map(mapper::toResponse).collect(Collectors.toList()), pageable, p.getTotalElements());
+    }
+
+    @Override
+    public CafeteriaResponse getByName(String name) {
+        if (cafeteriaRepository.findByName(name).isEmpty()){
+            throw new NotFoundException("Cafeteria Not Found");
+        }
+        return mapper.toResponse(cafeteriaRepository.findByName(name).get());
     }
 }

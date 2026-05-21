@@ -9,4 +9,5 @@ public interface CafeteriaService {
     CafeteriaResponse create(CafeteriaRequest req);
     CafeteriaResponse getById(Long id);
     Page<CafeteriaResponse> search(String q, Pageable pageable);
+    CafeteriaResponse getByName(String name);
 }

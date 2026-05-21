@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
         var u = mapper.toEntity(req);
         u.setPassword(passwordEncoder.encode(req.getPassword()));
-        u.setRole(UserRole.CUSTOMER.name());
+        u.setRole(UserRole.CUSTOMER);
         u.setEmail(req.getEmail());
         u.setCreatedAt(OffsetDateTime.now());
         userRepository.save(u);

@@ -32,4 +32,9 @@ public class CafeteriaController {
     public ResponseEntity<CafeteriaResponse> get(@PathVariable Long id) {
         return ResponseEntity.ok(cafeteriaService.getById(id));
     }
+
+    @GetMapping("{name}")
+    public ResponseEntity<ApiResponse<CafeteriaResponse>> getByName(@PathVariable String name){
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), cafeteriaService.getByName(name)));
+    }
 }

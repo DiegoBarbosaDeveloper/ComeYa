@@ -1,5 +1,6 @@
 package co.edu.ustavillavicencio.comeya.dto.cafeteria;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -11,6 +12,4 @@ import lombok.*;
 public class CafeteriaRequest {
     @NotBlank
     private String name;
-
-    private String address;
 }
