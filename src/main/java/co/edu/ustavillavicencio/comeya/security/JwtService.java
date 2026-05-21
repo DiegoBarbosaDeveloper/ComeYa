@@ -2,7 +2,9 @@ package co.edu.ustavillavicencio.comeya.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -13,10 +15,14 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class JwtService {
-    private final co.edu.ustavillavicencio.comeya.config.JwtProperties props;
+    @Value("${jwt.secret}")
+    private String secretKey;
+
+    @Value("${jwt.expiration-ms}")
+    private long expirationMs;
 
     private SecretKey getKey() {
-        return Keys.hmacShaKeyFor(props.secret().getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateToken(String username) {
@@ -24,7 +30,7 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plusMillis(props.expirationMs())))
+                .setExpiration(Date.from(now.plusMillis(expirationMs)))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -40,7 +46,7 @@ public class JwtService {
 
             String signingInput = headerB64 + "." + payloadB64;
 
-            byte[] secret = props.secret().getBytes(StandardCharsets.UTF_8);
+            byte[] secret = secretKey.getBytes(StandardCharsets.UTF_8);
             javax.crypto.Mac mac = javax.crypto.Mac.getInstance("HmacSHA256");
             mac.init(new javax.crypto.spec.SecretKeySpec(secret, "HmacSHA256"));
             byte[] expected = mac.doFinal(signingInput.getBytes(StandardCharsets.US_ASCII));
