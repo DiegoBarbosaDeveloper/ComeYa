@@ -4,7 +4,6 @@ import co.edu.ustavillavicencio.comeya.dto.auth.AuthResponse;
 import co.edu.ustavillavicencio.comeya.dto.auth.LoginRequest;
 import co.edu.ustavillavicencio.comeya.dto.auth.RegisterRequest;
 import co.edu.ustavillavicencio.comeya.exception.BusinessRuleException;
-import co.edu.ustavillavicencio.comeya.exception.NotFoundException;
 import co.edu.ustavillavicencio.comeya.model.entity.UserEntity;
 import co.edu.ustavillavicencio.comeya.model.enums.UserRole;
 import co.edu.ustavillavicencio.comeya.repository.UserRepository;
@@ -60,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // Creamos la entidad del usuario
-        var user = UserEntity.builder()
+        UserEntity user = UserEntity.builder()
                 .name(request.name())
                 .email(request.email())
                 .password(

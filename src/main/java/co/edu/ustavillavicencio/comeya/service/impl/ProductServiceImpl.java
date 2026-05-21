@@ -5,6 +5,7 @@ import co.edu.ustavillavicencio.comeya.dto.product.ProductResponse;
 import co.edu.ustavillavicencio.comeya.mapper.ProductMapper;
 import co.edu.ustavillavicencio.comeya.repository.FoodRepository;
 import co.edu.ustavillavicencio.comeya.service.ProductService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper mapper;
 
     @Override
-    public ProductResponse create(ProductRequest req) {
+    public ProductResponse create(@NonNull ProductRequest req) {
         var f = mapper.toEntity(req);
         foodRepository.save(f);
         return mapper.toResponse(f);

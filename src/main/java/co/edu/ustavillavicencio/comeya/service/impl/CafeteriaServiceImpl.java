@@ -4,8 +4,10 @@ import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaRequest;
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaResponse;
 import co.edu.ustavillavicencio.comeya.exception.NotFoundException;
 import co.edu.ustavillavicencio.comeya.mapper.CafeteriaMapper;
+import co.edu.ustavillavicencio.comeya.model.entity.CafeteriaEntity;
 import co.edu.ustavillavicencio.comeya.repository.CafeteriaRepository;
 import co.edu.ustavillavicencio.comeya.service.CafeteriaService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,20 +23,20 @@ public class CafeteriaServiceImpl implements CafeteriaService {
     private final CafeteriaMapper mapper;
 
     @Override
-    public CafeteriaResponse create(CafeteriaRequest req) {
+    public CafeteriaResponse create(@NonNull CafeteriaRequest req) {
         var c = mapper.toEntity(req);
         cafeteriaRepository.save(c);
         return mapper.toResponse(c);
     }
 
     @Override
-    public CafeteriaResponse getById(Long id) {
+    public CafeteriaResponse getById(@NonNull Long id) {
         return cafeteriaRepository.findById(id).map(mapper::toResponse).orElseThrow();
     }
 
     @Override
     public Page<CafeteriaResponse> search(String q, Pageable pageable) {
-        Page<co.edu.ustavillavicencio.comeya.model.entity.CafeteriaEntity> p = cafeteriaRepository.findAll(pageable);
+        Page<CafeteriaEntity> p = cafeteriaRepository.findAll(pageable);
         return new PageImpl<>(p.getContent().stream().map(mapper::toResponse).collect(Collectors.toList()), pageable, p.getTotalElements());
     }
 

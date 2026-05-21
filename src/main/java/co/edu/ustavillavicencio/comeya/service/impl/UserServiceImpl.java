@@ -8,6 +8,7 @@ import co.edu.ustavillavicencio.comeya.model.entity.UserEntity;
 import co.edu.ustavillavicencio.comeya.model.enums.UserRole;
 import co.edu.ustavillavicencio.comeya.repository.UserRepository;
 import co.edu.ustavillavicencio.comeya.service.UserService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -43,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse getById(Long id) {
+    public UserResponse getById(@NonNull Long id) {
         return userRepository.findById(id).map(mapper::toResponse).orElseThrow();
     }
 
