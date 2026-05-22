@@ -1,26 +1,24 @@
 package co.edu.ustavillavicencio.comeya.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+ 
 import java.util.List;
-
-@Data
-@Builder
+ 
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL) // omite campos null en el JSON
 public class ApiResponse<T> {
-
-    @Builder.Default
-    private OffsetDateTime timestamp = OffsetDateTime.now();
+ 
     private boolean success;
     private String message;
     private T data;
     private List<String> errors;
-
+ 
+ 
     public static <T> ApiResponse<T> success(String message, T data) {
         return ApiResponse.<T>builder()
                 .success(true)
@@ -28,14 +26,15 @@ public class ApiResponse<T> {
                 .data(data)
                 .build();
     }
-
-    public static <T> ApiResponse<T> success(String message) {
+ 
+    public static <T> ApiResponse<T> error(String message) {
         return ApiResponse.<T>builder()
-                .success(true)
+                .success(false)
                 .message(message)
                 .build();
     }
-
+ 
+ 
     public static <T> ApiResponse<T> error(String message, List<String> errors) {
         return ApiResponse.<T>builder()
                 .success(false)

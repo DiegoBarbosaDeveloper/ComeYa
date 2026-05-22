@@ -6,7 +6,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -41,9 +40,5 @@ public class FoodEntity {
     @Builder.Default
     @OneToMany(mappedBy = "food", fetch = FetchType.LAZY)
     private Set<MenuDayEntity> menuDays = new HashSet<>();
-
-    @Builder.Default
-    @ManyToMany(mappedBy = "foods", fetch = FetchType.LAZY)
-    private Set<OrderItemEntity> orderItems = new HashSet<>();
 
 }

@@ -7,8 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "usta_tables")
@@ -33,9 +32,5 @@ public class TableEntity {
 
     @Column(name = "usta_tabl_available", nullable = false)
     private boolean available;
-
-    @Builder.Default
-    @OneToMany(mappedBy = "tableEntity", fetch = FetchType.LAZY)
-    private Set<OrderEntity> orders = new HashSet<>();
 
 }

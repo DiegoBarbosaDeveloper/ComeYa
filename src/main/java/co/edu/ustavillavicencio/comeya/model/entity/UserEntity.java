@@ -1,12 +1,16 @@
 package co.edu.ustavillavicencio.comeya.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,9 +18,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.OffsetDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import co.edu.ustavillavicencio.comeya.model.enums.Role;
 
 @Entity
 @Table(name = "usta_users")
@@ -27,35 +34,39 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserEntity {
 
-    @Id
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "usta_user_id")
     private Long id;
-
-    @Column(name = "usta_user_name", nullable = false)
-    private String name;
-
-    @Column(name = "usta_user_email", nullable = false, unique = true)
+ 
+    @Column(nullable = false, unique = true)
+    private String username;
+ 
+    @Column(nullable = false)
+    private String fullName;
+ 
+    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(name = "usta_user_password", nullable = false)
+ 
+    @JsonIgnore
+    @Column(nullable = false)
     private String password;
-
-    @Column(name = "usta_user_role", nullable = false)
-    private String role;
-
-    @Column(name = "usta_user_active", nullable = false)
-    private boolean active;
-
-    @Column(name = "usta_user_created_at", nullable = false)
-    private OffsetDateTime createdAt;
-
+ 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+ 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
-    private Set<StaffCafeteriaEntity> staffAssignments = new HashSet<>();
-
-    @Builder.Default
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    private Set<OrderEntity> orders = new HashSet<>();
-
+    @Column(nullable = false)
+    private boolean active = true;
+ 
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+ 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrderEntity> orders;
+ 
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }

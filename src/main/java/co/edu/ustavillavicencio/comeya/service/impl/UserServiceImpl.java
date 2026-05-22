@@ -5,7 +5,7 @@ import co.edu.ustavillavicencio.comeya.dto.user.UserResponse;
 import co.edu.ustavillavicencio.comeya.exception.BusinessRuleException;
 import co.edu.ustavillavicencio.comeya.mapper.UserMapper;
 import co.edu.ustavillavicencio.comeya.model.entity.UserEntity;
-import co.edu.ustavillavicencio.comeya.model.enums.UserRole;
+import co.edu.ustavillavicencio.comeya.model.enums.Role;
 import co.edu.ustavillavicencio.comeya.repository.UserRepository;
 import co.edu.ustavillavicencio.comeya.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,9 +35,9 @@ public class UserServiceImpl implements UserService {
 
         var u = mapper.toEntity(req);
         u.setPassword(passwordEncoder.encode(req.getPassword()));
-        u.setRole(UserRole.CUSTOMER.name());
+        u.setRole(Role.USER);
         u.setEmail(req.getEmail());
-        u.setCreatedAt(OffsetDateTime.now());
+        u.setCreatedAt(LocalDateTime.now());
         userRepository.save(u);
         return mapper.toResponse(u);
     }
@@ -60,15 +60,19 @@ public class UserServiceImpl implements UserService {
 
         assert userDetails != null;
         UserEntity user = userRepository
-                .findByName(userDetails.getUsername())
+                .findByUsername(userDetails.getUsername())
                 .orElseThrow(() ->
                         new RuntimeException("User Not Found")
                 );
 
         return UserResponse.builder()
                 .id(user.getId())
-                .username(user.getName())
+                .username(user.getUsername())
+                .fullName(user.getFullName())
                 .email(user.getEmail())
+                .role(user.getRole())
+                .active(user.isActive())
+                .createdAt(user.getCreatedAt())
                 .build();
     }
 }
