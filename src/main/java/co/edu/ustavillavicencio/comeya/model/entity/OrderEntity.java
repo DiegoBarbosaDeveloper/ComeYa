@@ -58,6 +58,9 @@ public class OrderEntity {
     @Column(name = "usta_orde_created_at", nullable = false)
     private OffsetDateTime createdAt;
 
+    @Column(name = "usta_orde_active", nullable = false)
+    private boolean active;
+
     @Builder.Default
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderItemEntity> items = new HashSet<>();

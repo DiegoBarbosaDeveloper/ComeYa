@@ -3,14 +3,17 @@ package co.edu.ustavillavicencio.comeya.mapper;
 import co.edu.ustavillavicencio.comeya.model.entity.CafeteriaEntity;
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaRequest;
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaResponse;
+import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaUpdateRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface CafeteriaMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "open", constant = "false")
     @Mapping(target = "servesFood", constant = "true")
+    @Mapping(target = "active", constant = "true")
     @Mapping(target = "tables", ignore = true)
     @Mapping(target = "menus", ignore = true)
     @Mapping(target = "staffMembers", ignore = true)
@@ -19,4 +22,14 @@ public interface CafeteriaMapper {
 
     @Mapping(target = "createdAt", ignore = true)
     CafeteriaResponse toResponse(CafeteriaEntity res);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "open", ignore = true)
+    @Mapping(target = "servesFood", ignore = true)
+    @Mapping(target = "active", ignore = true)
+    @Mapping(target = "tables", ignore = true)
+    @Mapping(target = "menus", ignore = true)
+    @Mapping(target = "staffMembers", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    void updateEntityFromRequest(CafeteriaUpdateRequest req, @MappingTarget CafeteriaEntity entity);
 }

@@ -3,6 +3,7 @@ package co.edu.ustavillavicencio.comeya.controller;
 import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderRequest;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderResponse;
+import co.edu.ustavillavicencio.comeya.dto.order.OrderUpdateRequest;
 import co.edu.ustavillavicencio.comeya.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,16 @@ public class OrderController {
     @GetMapping("/cafeteria/{cafeteriaId}")
     public ResponseEntity<ApiResponse<Page<OrderResponse>>> listByCafeteria(@PathVariable Long cafeteriaId, Pageable pageable) {
         return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), orderService.listByCafeteria(cafeteriaId, pageable)));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<OrderResponse>> update(@PathVariable Long id, @Valid @RequestBody OrderUpdateRequest req) {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), orderService.update(id, req)));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+        orderService.delete(id);
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), null));
     }
 }

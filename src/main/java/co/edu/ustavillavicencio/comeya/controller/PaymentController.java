@@ -4,6 +4,7 @@ import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
 
 import co.edu.ustavillavicencio.comeya.dto.payment.PaymentRequest;
 import co.edu.ustavillavicencio.comeya.dto.payment.PaymentResponse;
+import co.edu.ustavillavicencio.comeya.dto.payment.PaymentUpdateRequest;
 import co.edu.ustavillavicencio.comeya.service.PaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,16 @@ public class PaymentController {
     @PostMapping
     public ResponseEntity<ApiResponse <PaymentResponse>> create(@Valid @RequestBody PaymentRequest req) {
         return ResponseEntity.ok(ApiResponse.success(HttpStatus.CREATED.name(), paymentService.create(req)));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<PaymentResponse>> update(@PathVariable Long id, @Valid @RequestBody PaymentUpdateRequest req) {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), paymentService.update(id, req)));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+        paymentService.delete(id);
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), null));
     }
 }

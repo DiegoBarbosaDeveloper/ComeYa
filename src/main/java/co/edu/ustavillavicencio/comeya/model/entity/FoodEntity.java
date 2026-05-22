@@ -38,6 +38,9 @@ public class FoodEntity {
     @Column(name = "usta_food_type", nullable = false)
     private String type;
 
+    @Column(name = "usta_food_active", nullable = false)
+    private boolean active;
+
     @Builder.Default
     @OneToMany(mappedBy = "food", fetch = FetchType.LAZY)
     private Set<MenuDayEntity> menuDays = new HashSet<>();

@@ -2,6 +2,7 @@ package co.edu.ustavillavicencio.comeya.service.impl;
 
 import co.edu.ustavillavicencio.comeya.dto.order.OrderRequest;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderResponse;
+import co.edu.ustavillavicencio.comeya.dto.order.OrderUpdateRequest;
 import co.edu.ustavillavicencio.comeya.mapper.OrderMapper;
 import co.edu.ustavillavicencio.comeya.model.entity.OrderEntity;
 import co.edu.ustavillavicencio.comeya.repository.OrderRepository;
@@ -37,5 +38,20 @@ public class OrderServiceImpl implements OrderService {
     public Page<OrderResponse> listByCafeteria(@NonNull Long cafeteriaId, @NonNull Pageable pageable) {
         Page<OrderEntity> p = orderRepository.findAll(pageable);
         return new PageImpl<>(p.getContent().stream().map(mapper::toResponse).collect(Collectors.toList()), pageable, p.getTotalElements());
+    }
+
+    @Override
+    public OrderResponse update(@NonNull Long id, @NonNull OrderUpdateRequest req) {
+        OrderEntity order = orderRepository.findById(id).orElseThrow();
+        mapper.updateEntityFromRequest(req, order);
+        orderRepository.save(order);
+        return mapper.toResponse(order);
+    }
+
+    @Override
+    public void delete(@NonNull Long id) {
+        OrderEntity order = orderRepository.findById(id).orElseThrow();
+        order.setActive(false);
+        orderRepository.save(order);
     }
 }

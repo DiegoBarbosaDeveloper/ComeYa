@@ -2,6 +2,7 @@ package co.edu.ustavillavicencio.comeya.service.impl;
 
 import co.edu.ustavillavicencio.comeya.dto.user.UserRequest;
 import co.edu.ustavillavicencio.comeya.dto.user.UserResponse;
+import co.edu.ustavillavicencio.comeya.dto.user.UserUpdateRequest;
 import co.edu.ustavillavicencio.comeya.exception.BusinessRuleException;
 import co.edu.ustavillavicencio.comeya.mapper.UserMapper;
 import co.edu.ustavillavicencio.comeya.model.entity.UserEntity;
@@ -71,5 +72,22 @@ public class UserServiceImpl implements UserService {
                 .username(user.getName())
                 .email(user.getEmail())
                 .build();
+    }
+
+    @Override
+    public UserResponse update(Long id, UserUpdateRequest req) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("User not found"));
+        mapper.updateEntityFromRequest(req, user);
+        userRepository.save(user);
+        return mapper.toResponse(user);
+    }
+
+    @Override
+    public void delete(Long id) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("User not found"));
+        user.setActive(false);
+        userRepository.save(user);
     }
 }

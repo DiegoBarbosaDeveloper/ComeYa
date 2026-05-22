@@ -44,6 +44,9 @@ public class CafeteriaEntity {
     @Column(name = "usta_cafe_created_at", nullable = false)
     private OffsetDateTime createdAt;
 
+    @Column(name = "usta_cafe_active", nullable = false)
+    private boolean active;
+
     @Builder.Default
     @OneToMany(mappedBy = "cafeteria", fetch = FetchType.LAZY)
     private Set<TableEntity> tables = new HashSet<>();

@@ -2,6 +2,7 @@ package co.edu.ustavillavicencio.comeya.service.impl;
 
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaRequest;
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaResponse;
+import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaUpdateRequest;
 import co.edu.ustavillavicencio.comeya.exception.NotFoundException;
 import co.edu.ustavillavicencio.comeya.mapper.CafeteriaMapper;
 import co.edu.ustavillavicencio.comeya.model.entity.CafeteriaEntity;
@@ -46,5 +47,22 @@ public class CafeteriaServiceImpl implements CafeteriaService {
             throw new NotFoundException("Cafeteria Not Found");
         }
         return mapper.toResponse(cafeteriaRepository.findByName(name).get());
+    }
+
+    @Override
+    public CafeteriaResponse update(@NonNull Long id, @NonNull CafeteriaUpdateRequest req) {
+        CafeteriaEntity cafeteria = cafeteriaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Cafeteria not found"));
+        mapper.updateEntityFromRequest(req, cafeteria);
+        cafeteriaRepository.save(cafeteria);
+        return mapper.toResponse(cafeteria);
+    }
+
+    @Override
+    public void delete(@NonNull Long id) {
+        CafeteriaEntity cafeteria = cafeteriaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Cafeteria not found"));
+        cafeteria.setActive(false);
+        cafeteriaRepository.save(cafeteria);
     }
 }
