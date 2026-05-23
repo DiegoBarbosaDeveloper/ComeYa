@@ -25,3 +25,10 @@ jwt:
   secret: ${JWT_SECRET}
   expiration-ms: ${JWT_EXPIRATION_MS}
 
+wompi:
+  base-url: ${WOMPI_BASE_URL:https://sandbox.wompi.co/v1}
+  public-key: ${WOMPI_PUBLIC_KEY}
+  private-key: ${WOMPI_PRIVATE_KEY}
+  integrity-key: ${WOMPI_INTEGRITY_KEY}
+  webhook-secret: ${WOMPI_WEBHOOK_SECRET}
+

@@ -5,6 +5,7 @@ import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
 import co.edu.ustavillavicencio.comeya.dto.payment.PaymentRequest;
 import co.edu.ustavillavicencio.comeya.dto.payment.PaymentResponse;
 import co.edu.ustavillavicencio.comeya.dto.payment.PaymentUpdateRequest;
+import co.edu.ustavillavicencio.comeya.dto.wompi.WompiWebhookPayload;
 import co.edu.ustavillavicencio.comeya.service.PaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,11 @@ public class PaymentController {
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         paymentService.delete(id);
         return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), null));
+    }
+
+    @PostMapping("/webhooks/wompi")
+    public ResponseEntity<Void> handleWompiWebhook(@RequestBody WompiWebhookPayload payload) {
+        paymentService.handleWebhook(payload);
+        return ResponseEntity.ok().build();
     }
 }

@@ -35,7 +35,8 @@ public class SecurityConfig {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/auth/**").permitAll()
+                        request                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/payments/webhooks/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/me").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole("ADMIN", "STAFF")
                                 .requestMatchers( "/cafeteria/**").hasAnyRole("ADMIN, STAFF")

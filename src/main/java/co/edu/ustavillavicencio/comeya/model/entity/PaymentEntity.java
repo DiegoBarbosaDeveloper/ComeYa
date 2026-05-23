@@ -45,6 +45,9 @@ public class PaymentEntity {
     @Column(name = "usta_paym_active", nullable = false)
     private boolean active;
 
+    @Column(name = "usta_paym_wompi_txn_id")
+    private String wompiTransactionId;
+
     @Builder.Default
     @OneToMany(mappedBy = "payment", fetch = FetchType.LAZY)
     private Set<OrderEntity> orders = new HashSet<>();
