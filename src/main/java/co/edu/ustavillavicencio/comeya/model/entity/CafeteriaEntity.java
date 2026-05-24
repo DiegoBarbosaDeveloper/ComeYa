@@ -28,7 +28,7 @@ import java.util.Set;
 public class CafeteriaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usta_cafe_id")
     private Long id;
 

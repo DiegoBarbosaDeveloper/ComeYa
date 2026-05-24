@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +27,7 @@ public class CafeteriaServiceImpl implements CafeteriaService {
     @Override
     public CafeteriaResponse create(@NonNull CafeteriaRequest req) {
         var c = mapper.toEntity(req);
+        c.setCreatedAt(OffsetDateTime.now());
         cafeteriaRepository.save(c);
         return mapper.toResponse(c);
     }

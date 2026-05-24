@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     open-in-view: false
     show-sql: true
     properties:
@@ -26,7 +26,7 @@ jwt:
   expiration-ms: ${JWT_EXPIRATION_MS}
 
 wompi:
-  base-url: ${WOMPI_BASE_URL:https://sandbox.wompi.co/v1}
+  base-url: ${WOMPI_BASE_URL}
   public-key: ${WOMPI_PUBLIC_KEY}
   private-key: ${WOMPI_PRIVATE_KEY}
   integrity-key: ${WOMPI_INTEGRITY_KEY}

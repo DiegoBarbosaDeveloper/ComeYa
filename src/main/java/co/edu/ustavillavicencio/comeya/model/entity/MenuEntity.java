@@ -30,7 +30,7 @@ import java.util.Set;
 public class MenuEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usta_menu_id")
     private Long id;
 

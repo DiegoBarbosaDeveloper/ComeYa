@@ -20,7 +20,7 @@ import java.util.Set;
 public class TableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usta_tabl_id")
     private Long id;
 

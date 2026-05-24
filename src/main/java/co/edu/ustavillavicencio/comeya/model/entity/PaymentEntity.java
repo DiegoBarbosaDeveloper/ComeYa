@@ -24,7 +24,7 @@ import java.util.Set;
 public class PaymentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usta_paym_id")
     private Long id;
 

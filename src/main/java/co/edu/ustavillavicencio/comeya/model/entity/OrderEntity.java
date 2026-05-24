@@ -30,7 +30,7 @@ import java.util.Set;
 public class OrderEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usta_orde_id")
     private Long id;
 
