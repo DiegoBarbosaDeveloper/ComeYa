@@ -17,7 +17,7 @@ public class UserResponse {
     private String username;
     private String fullName;
     private String email;
-    private Role role;
-    private Boolean active;
-    private LocalDateTime createdAt;
+    private String role;
+    private boolean active;
+    private OffsetDateTime createdAt;
 }
