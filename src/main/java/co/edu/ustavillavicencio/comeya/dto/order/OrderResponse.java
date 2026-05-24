@@ -3,11 +3,10 @@ package co.edu.ustavillavicencio.comeya.dto.order;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+
 import java.time.OffsetDateTime;
 import java.util.List;
 
-import co.edu.ustavillavicencio.comeya.model.enums.Role;
 
 @Getter
 @Setter
@@ -16,10 +15,11 @@ import co.edu.ustavillavicencio.comeya.model.enums.Role;
 @Builder
 public class OrderResponse {
     private Long id;
-    private String cliente;
-    private String mesa;
-    private String estado;
+    private String orderNumber;
+    private String status;
+    
+    private String client;
     private BigDecimal total;
-    private String hora;
+    private OffsetDateTime createdAt;
     private List<OrderItemResponse> items;
 }
