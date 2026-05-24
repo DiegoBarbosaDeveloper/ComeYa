@@ -24,8 +24,7 @@ public class DataSeeder implements CommandLineRunner {
     @Transactional
     public void run(String... args) {
         seed("admin", "Administrador", "admin@comeya.co", "admin123", Role.ADMIN);
-        seed("cocina1", "Chef Carlos", "cocina@comeya.co", "cocina123", Role.STAFF_COCINA);
-        seed("cajero1", "Cajera Laura", "cajero@comeya.co", "cajero123", Role.STAFF_CAJERO);
+
     }
 
     private void seed(String username, String fullName, String email, String password, Role role) {
@@ -43,6 +42,5 @@ public class DataSeeder implements CommandLineRunner {
                 .build();
 
         userRepository.save(user);
-        System.out.println("✅ Usuario " + role + " creado: " + username + " / " + password);
     }
 }
