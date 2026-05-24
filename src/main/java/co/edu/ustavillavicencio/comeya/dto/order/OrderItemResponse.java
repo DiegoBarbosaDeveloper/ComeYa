@@ -17,7 +17,7 @@ public class OrderItemResponse {
     private BigDecimal unitPrice;
     private BigDecimal subtotal;
 
-    @JsonProperty("nombre")
+    @JsonProperty("name")
     public String getNombre() {
         return productName;
     }
