@@ -47,9 +47,6 @@ public class CafeteriaEntity {
     @Column(name = "usta_cafe_active", nullable = false)
     private boolean active;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "cafeteria", fetch = FetchType.LAZY)
-    private Set<TableEntity> tables = new HashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "cafeteria", fetch = FetchType.LAZY)

@@ -34,13 +34,21 @@ public class CafeteriaServiceImpl implements CafeteriaService {
 
     @Override
     public CafeteriaResponse getById(@NonNull Long id) {
-        return cafeteriaRepository.findById(id).map(mapper::toResponse).orElseThrow();
+        return cafeteriaRepository.findById(id)
+            .filter(x -> x.isActive())
+            .map(mapper::toResponse)
+            .orElseThrow(() -> new NotFoundException("Cafeteria not found"));
+            
     }
 
     @Override
     public Page<CafeteriaResponse> search(String q, Pageable pageable) {
         Page<CafeteriaEntity> p = cafeteriaRepository.findAll(pageable);
-        return new PageImpl<>(p.getContent().stream().map(mapper::toResponse).collect(Collectors.toList()), pageable, p.getTotalElements());
+        return new PageImpl<>(p.getContent()
+            .stream()
+            .filter(x-> x.isActive())
+            .map(mapper::toResponse)
+            .collect(Collectors.toList()), pageable, p.getTotalElements());
     }
 
     @Override

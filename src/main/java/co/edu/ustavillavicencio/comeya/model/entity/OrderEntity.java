@@ -38,10 +38,6 @@ public class OrderEntity {
     private String number;
 
     @ManyToOne
-    @JoinColumn(name = "usta_orde_table_id", nullable = false)
-    private TableEntity tableEntity;
-
-    @ManyToOne
     @JoinColumn(name = "usta_orde_customer_id", nullable = false)
     private UserEntity customer;
 

@@ -14,7 +14,5 @@ public class OrderRequest {
     @NotNull
     private Long cafeteriaId;
 
-    private Long tableId;
-
     private List<OrderItemRequest> items;
 }

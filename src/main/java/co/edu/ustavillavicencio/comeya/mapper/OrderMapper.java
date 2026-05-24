@@ -22,7 +22,6 @@ public interface OrderMapper {
     @Mapping(target = "active", constant = "true")
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "customer", ignore = true)
-    @Mapping(target = "tableEntity", ignore = true)
     @Mapping(target = "payment", ignore = true)
     OrderEntity toEntity(OrderRequest req);
 
@@ -42,7 +41,6 @@ public interface OrderMapper {
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "customer", ignore = true)
-    @Mapping(target = "tableEntity", ignore = true)
     @Mapping(target = "payment", ignore = true)
     @Mapping(target = "items", ignore = true)
     void updateEntityFromRequest(OrderUpdateRequest req, @MappingTarget OrderEntity entity);
