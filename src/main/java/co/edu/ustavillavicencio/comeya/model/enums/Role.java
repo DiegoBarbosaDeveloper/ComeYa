@@ -1,7 +1,7 @@
 package co.edu.ustavillavicencio.comeya.model.enums;
 
 public enum UserRole {
-    USER,
+    CUSTOMER,
     STAFF_COCINA,
     STAFF_CAJERO,
     ADMIN
