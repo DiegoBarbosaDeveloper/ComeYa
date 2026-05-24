@@ -13,6 +13,5 @@ import java.util.List;
 public class OrderRequest {
     @NotNull
     private Long cafeteriaId;
-
     private List<OrderItemRequest> items;
 }
