@@ -26,6 +26,5 @@ public interface ProductMapper {
     @Mapping(target = "type", ignore = true)
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "menuDays", ignore = true)
-    @Mapping(target = "orderItems", ignore = true)
     void updateEntityFromRequest(ProductUpdateRequest req, @MappingTarget FoodEntity entity);
 }

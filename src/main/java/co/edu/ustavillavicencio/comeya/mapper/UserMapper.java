@@ -20,8 +20,7 @@ public interface UserMapper {
     UserEntity toEntity(UserRequest req);
 
     @Mapping(source = "role", target = "role")
-    @Mapping(source = "name", target = "username")
-    @Mapping(target = "fullName", ignore = true)
+    @Mapping(source = "name", target = "name")
     @Mapping(target = "email", ignore = true)
     UserResponse toResponse(UserEntity user);
 

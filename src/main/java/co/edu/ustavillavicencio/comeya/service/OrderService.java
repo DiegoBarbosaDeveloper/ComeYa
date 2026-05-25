@@ -11,6 +11,7 @@ import java.util.List;
 public interface OrderService {
     OrderResponse create(OrderRequest req, String username);
     OrderResponse getById(Long id);
+    public OrderResponse update(Long id,OrderUpdateRequest req);
     Page<OrderResponse> listByCafeteria(Long cafeteriaId, Pageable pageable);
     List<OrderResponse> listAll();
     OrderResponse updateStatus(Long id, String estado);

@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,6 +57,9 @@ public class OrderEntity {
 
     @Column(name = "usta_orde_active", nullable = false)
     private boolean active;
+
+    @Column(name = "usta_orde_total", nullable = false)
+    private BigDecimal total;
 
     @Builder.Default
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

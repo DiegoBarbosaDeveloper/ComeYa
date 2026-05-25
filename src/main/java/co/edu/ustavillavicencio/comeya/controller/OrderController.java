@@ -3,13 +3,11 @@ package co.edu.ustavillavicencio.comeya.controller;
 import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderRequest;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderResponse;
-import co.edu.ustavillavicencio.comeya.dto.order.OrderUpdateRequest;
+import co.edu.ustavillavicencio.comeya.dto.order.StatusUpdateRequest;
 import co.edu.ustavillavicencio.comeya.service.OrderService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -38,7 +36,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<OrderResponse>> updateStatus(@PathVariable Long id, @RequestBody StatusUpdateRequest request) {
+    public ResponseEntity<ApiResponse<OrderResponse>> updateStatus(@PathVariable Long id, @Valid @RequestBody StatusUpdateRequest request) {
         return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), orderService.updateStatus(id, request.getEstado())));
     }
 
@@ -48,19 +46,5 @@ public class OrderController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/cafeteria/{cafeteriaId}")
-    public ResponseEntity<ApiResponse<Page<OrderResponse>>> listByCafeteria(@PathVariable Long cafeteriaId, Pageable pageable) {
-        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), orderService.listByCafeteria(cafeteriaId, pageable)));
-    }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<OrderResponse>> update(@PathVariable Long id, @Valid @RequestBody OrderUpdateRequest req) {
-        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), orderService.update(id, req)));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
-        orderService.delete(id);
-        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), null));
-    }
 }

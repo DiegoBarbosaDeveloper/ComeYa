@@ -29,9 +29,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponse create(OrderRequest req, String username) {
-        UserEntity user = userRepository.findByUsername(username).orElseThrow();
+        UserEntity user = userRepository.findByName(username).orElseThrow();
         var o = mapper.toEntity(req);
-        o.setUser(user);
+        o.setCustomer(user);
         if (o.getItems() != null) {
             o.getItems().forEach(item -> item.setOrder(o));
         }
@@ -63,5 +63,17 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity order = orderRepository.findById(id).orElseThrow();
         order.setActive(false);
         orderRepository.save(order);
+    }
+
+    @Override
+    public List<OrderResponse> listAll() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listAll'");
+    }
+
+    @Override
+    public OrderResponse updateStatus(Long id, String estado) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateStatus'");
     }
 }
