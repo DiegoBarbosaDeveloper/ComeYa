@@ -1,11 +1,15 @@
 package co.edu.ustavillavicencio.comeya.mapper;
 
 import co.edu.ustavillavicencio.comeya.model.entity.OrderEntity;
+import co.edu.ustavillavicencio.comeya.model.entity.FoodEntity;
 import co.edu.ustavillavicencio.comeya.model.entity.OrderItemEntity;
 import co.edu.ustavillavicencio.comeya.dto.order.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+
+import java.math.BigDecimal;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
@@ -25,9 +29,9 @@ public interface OrderMapper {
     @Mapping(target = "payment", ignore = true)
     OrderEntity toEntity(OrderRequest req);
 
-    @Mapping(target = "productName", ignore = true)
-    @Mapping(target = "unitPrice", ignore = true)
-    @Mapping(target = "subtotal", ignore = true)
+    @Mapping(target = "productName", expression = "java(mapProductName(item))")
+    @Mapping(target = "unitPrice", expression = "java(mapUnitPrice(item))")
+    @Mapping(target = "subtotal", expression = "java(mapSubtotal(item))")
     OrderItemResponse toItemResponse(OrderItemEntity item);
     
     @Mapping(source = "number", target = "orderNumber")
@@ -43,4 +47,29 @@ public interface OrderMapper {
     @Mapping(target = "payment", ignore = true)
     @Mapping(target = "items", ignore = true)
     void updateEntityFromRequest(OrderUpdateRequest req, @MappingTarget OrderEntity entity);
+
+    default String mapProductName(OrderItemEntity item) {
+        if (item == null || item.getFoods() == null || item.getFoods().isEmpty()) return null;
+        FoodEntity first = item.getFoods().iterator().next();
+        if (first != null && first.getName() != null && !first.getName().isBlank()) {
+            return first.getName();
+        }
+        String joined = item.getFoods().stream()
+                .map(FoodEntity::getName)
+                .filter(n -> n != null && !n.isBlank())
+                .collect(Collectors.joining(", "));
+        return joined.isBlank() ? null : joined;
+    }
+
+    default BigDecimal mapUnitPrice(OrderItemEntity item) {
+        if (item == null || item.getFoods() == null || item.getFoods().isEmpty()) return null;
+        FoodEntity first = item.getFoods().iterator().next();
+        return first != null ? first.getPrice() : null;
+    }
+
+    default BigDecimal mapSubtotal(OrderItemEntity item) {
+        BigDecimal unitPrice = mapUnitPrice(item);
+        if (unitPrice == null || item == null || item.getQuantity() == null) return null;
+        return unitPrice.multiply(BigDecimal.valueOf(item.getQuantity()));
+    }
 }

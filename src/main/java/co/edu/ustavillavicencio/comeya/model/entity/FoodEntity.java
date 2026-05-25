@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +37,9 @@ public class FoodEntity {
 
     @Column(name = "usta_food_type", nullable = false)
     private String type;
+
+    @Column(name = "usta_food_price", nullable = false)
+    private BigDecimal price;
 
     @Column(name = "usta_food_active", nullable = false)
     private boolean active;

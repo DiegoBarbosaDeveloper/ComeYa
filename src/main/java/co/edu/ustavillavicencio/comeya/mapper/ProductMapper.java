@@ -7,8 +7,14 @@ import co.edu.ustavillavicencio.comeya.dto.product.ProductUpdateRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
+)
 public interface ProductMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "type", ignore = true)
@@ -17,7 +23,6 @@ public interface ProductMapper {
     FoodEntity toEntity(ProductRequest req);
     
     @Mapping(target = "description", ignore = true)
-    @Mapping(target = "price", ignore = true)
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     ProductResponse toResponse(FoodEntity p);
