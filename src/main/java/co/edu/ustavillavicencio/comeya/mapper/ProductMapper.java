@@ -14,7 +14,6 @@ public interface ProductMapper {
     @Mapping(target = "type", ignore = true)
     @Mapping(target = "active", constant = "true")
     @Mapping(target = "menuDays", ignore = true)
-    @Mapping(target = "orderItems", ignore = true)
     FoodEntity toEntity(ProductRequest req);
     
     @Mapping(target = "description", ignore = true)
@@ -27,6 +26,5 @@ public interface ProductMapper {
     @Mapping(target = "type", ignore = true)
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "menuDays", ignore = true)
-    @Mapping(target = "orderItems", ignore = true)
     void updateEntityFromRequest(ProductUpdateRequest req, @MappingTarget FoodEntity entity);
 }

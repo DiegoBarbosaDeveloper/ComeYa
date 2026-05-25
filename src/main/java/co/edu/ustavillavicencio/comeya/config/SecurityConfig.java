@@ -38,9 +38,9 @@ public class SecurityConfig {
                         request                                .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/payments/webhooks/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/me").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole("ADMIN", "STAFF")
-                                .requestMatchers( "/cafeteria/**").hasAnyRole("ADMIN, STAFF")
-                                .requestMatchers(HttpMethod.GET, "/orders/**").hasAnyRole("ADMIN", "STAFF")
+                                .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole("ADMIN", "STAFF_COCINA", "STAFF_CAJERO")
+                                .requestMatchers("/cafeterias/**").hasAnyRole("ADMIN", "STAFF_COCINA", "STAFF_CAJERO")
+                                .requestMatchers(HttpMethod.GET, "/orders/**").hasAnyRole("ADMIN", "STAFF_COCINA", "STAFF_CAJERO")
                                 .requestMatchers(HttpMethod.POST, "/orders/my/**").authenticated()
                                 .anyRequest().authenticated()
                 );

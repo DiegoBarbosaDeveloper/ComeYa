@@ -25,7 +25,6 @@ public interface OrderMapper {
     @Mapping(target = "payment", ignore = true)
     OrderEntity toEntity(OrderRequest req);
 
-    @Mapping(target = "productId", ignore = true)
     @Mapping(target = "productName", ignore = true)
     @Mapping(target = "unitPrice", ignore = true)
     @Mapping(target = "subtotal", ignore = true)

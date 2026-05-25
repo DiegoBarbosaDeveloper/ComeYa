@@ -11,8 +11,7 @@ import java.time.OffsetDateTime;
 @Builder
 public class UserResponse {
     private Long id;
-    private String username;
-    private String fullName;
+    private String name;
     private String email;
     private String role;
     private boolean active;
