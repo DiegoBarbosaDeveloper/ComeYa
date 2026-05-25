@@ -1,22 +1,19 @@
 package co.edu.ustavillavicencio.comeya.dto.payment;
 
 import co.edu.ustavillavicencio.comeya.model.enums.PaymentStatus;
-import co.edu.ustavillavicencio.comeya.model.enums.PaymentType;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PaymentResponse{
-    private Long id;
-    private Long orderId;
-    private PaymentType method;
+public class PaymentUpdateRequest {
+    @NotNull
     private PaymentStatus status;
+
     private BigDecimal amount;
-    private OffsetDateTime paidAt;
 }

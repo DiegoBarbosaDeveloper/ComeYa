@@ -1,6 +1,5 @@
 package co.edu.ustavillavicencio.comeya.dto.order;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -10,8 +9,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderRequest {
-    @NotNull
-    private Long cafeteriaId;
+public class OrderUpdateRequest {
+    private String status;
+
     private List<OrderItemRequest> items;
 }

@@ -8,8 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CafeteriaRequest {
+public class CafeteriaUpdateRequest {
     @NotBlank
     private String name;
-    
 }

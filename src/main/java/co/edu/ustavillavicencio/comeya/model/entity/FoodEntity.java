@@ -27,7 +27,7 @@ import java.util.Set;
 public class FoodEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usta_food_id")
     private Long id;
 
@@ -36,6 +36,9 @@ public class FoodEntity {
 
     @Column(name = "usta_food_type", nullable = false)
     private String type;
+
+    @Column(name = "usta_food_active", nullable = false)
+    private boolean active;
 
     @Builder.Default
     @OneToMany(mappedBy = "food", fetch = FetchType.LAZY)

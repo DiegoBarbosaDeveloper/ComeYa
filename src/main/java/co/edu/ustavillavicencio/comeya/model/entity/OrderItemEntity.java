@@ -2,13 +2,13 @@ package co.edu.ustavillavicencio.comeya.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,33 +16,40 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "usta_menus")
+@Table(name = "usta_order_items")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuEntity {
+public class OrderItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "usta_menu_id")
+        @Column(name = "usta_orde_item_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "usta_menu_cafeteria_id", nullable = false)
-    private CafeteriaEntity cafeteria;
+        @JoinColumn(name = "usta_orde_item_order_id", nullable = false)
+    private OrderEntity order;
 
-    @Column(name = "usta_menu_date", nullable = false)
-    private LocalDate date;
+        @Column(name = "usta_orde_item_quantity", nullable = false)
+    private Integer quantity;
+
+        @Column(name = "usta_orde_item_note")
+    private String note;
 
     @Builder.Default
-    @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
-    private Set<MenuDayEntity> menuDays = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "usta_order_item_foods",
+            joinColumns = @JoinColumn(name = "usta_orde_item_id"),
+            inverseJoinColumns = @JoinColumn(name = "usta_food_id")
+    )
+    private Set<FoodEntity> foods = new HashSet<>();
 
 }

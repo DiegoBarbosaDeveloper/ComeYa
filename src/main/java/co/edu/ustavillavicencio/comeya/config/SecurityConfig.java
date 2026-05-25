@@ -35,7 +35,8 @@ public class SecurityConfig {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/auth/**").permitAll()
+                        request                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/payments/webhooks/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/me").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole("ADMIN", "STAFF_COCINA", "STAFF_CAJERO")
                                 .requestMatchers("/cafeterias/**").hasAnyRole("ADMIN", "STAFF_COCINA", "STAFF_CAJERO")
@@ -62,7 +63,7 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of("*"));
         config.setAllowedMethods(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(false);
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

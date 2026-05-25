@@ -1,11 +1,8 @@
 package co.edu.ustavillavicencio.comeya.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import co.edu.ustavillavicencio.comeya.model.enums.PaymentMethod;
+import co.edu.ustavillavicencio.comeya.model.enums.PaymentStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "usta_payments")
@@ -25,20 +24,33 @@ import java.time.LocalDate;
 public class PaymentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usta_paym_id")
     private Long id;
 
     @Column(name = "usta_paym_date", nullable = false)
-    private LocalDate date;
+    private OffsetDateTime date;
 
     @Column(name = "usta_paym_value", nullable = false)
     private BigDecimal value;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "usta_paym_status", nullable = false)
-    private String status;
+    private PaymentStatus status;
 
-    @Column(name = "usta_paym_type", nullable = false)
-    private String method;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "usta_paym_method", nullable = false)
+    private PaymentMethod method;
+
+    @Column(name = "usta_paym_active", nullable = false)
+    private boolean active;
+
+    @Column(name = "usta_paym_wompi_txn_id")
+    private String wompiTransactionId;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "payment", fetch = FetchType.LAZY)
+    private Set<OrderEntity> orders = new HashSet<>();
+
 
 }

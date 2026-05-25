@@ -3,6 +3,7 @@ package co.edu.ustavillavicencio.comeya.controller;
 import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaRequest;
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaResponse;
+import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaUpdateRequest;
 import co.edu.ustavillavicencio.comeya.service.CafeteriaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,23 @@ public class CafeteriaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CafeteriaResponse> get(@PathVariable Long id) {
-        return ResponseEntity.ok(cafeteriaService.getById(id));
+    public ResponseEntity<ApiResponse<CafeteriaResponse>> get(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), cafeteriaService.getById(id)));
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<ApiResponse<CafeteriaResponse>> getByName(@PathVariable String name){
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), cafeteriaService.getByName(name)));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<CafeteriaResponse>> update(@PathVariable Long id, @Valid @RequestBody CafeteriaUpdateRequest req) {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), cafeteriaService.update(id, req)));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+        cafeteriaService.delete(id);
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), null));
     }
 }

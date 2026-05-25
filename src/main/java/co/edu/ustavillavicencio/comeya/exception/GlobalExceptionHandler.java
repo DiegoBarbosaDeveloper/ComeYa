@@ -1,6 +1,7 @@
 package co.edu.ustavillavicencio.comeya.exception;
 
 import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
+import io.micrometer.common.lang.NonNull;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,13 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
-    public ResponseEntity<ApiResponse<Void>> handleApiException(ApiException exception) {
+    public ResponseEntity<ApiResponse<Void>> handleApiException(@NonNull ApiException exception) {
         return ResponseEntity.status(exception.getStatus())
                 .body(ApiResponse.error(exception.getMessage(), List.of(exception.getMessage())));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<Void>> handleValidation(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ApiResponse<Void>> handleValidation(@NonNull MethodArgumentNotValidException exception) {
         List<String> errors = exception.getBindingResult().getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)
                 .toList();

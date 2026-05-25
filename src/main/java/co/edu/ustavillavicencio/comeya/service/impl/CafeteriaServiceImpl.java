@@ -2,15 +2,20 @@ package co.edu.ustavillavicencio.comeya.service.impl;
 
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaRequest;
 import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaResponse;
+import co.edu.ustavillavicencio.comeya.dto.cafeteria.CafeteriaUpdateRequest;
+import co.edu.ustavillavicencio.comeya.exception.NotFoundException;
 import co.edu.ustavillavicencio.comeya.mapper.CafeteriaMapper;
+import co.edu.ustavillavicencio.comeya.model.entity.CafeteriaEntity;
 import co.edu.ustavillavicencio.comeya.repository.CafeteriaRepository;
 import co.edu.ustavillavicencio.comeya.service.CafeteriaService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,20 +25,54 @@ public class CafeteriaServiceImpl implements CafeteriaService {
     private final CafeteriaMapper mapper;
 
     @Override
-    public CafeteriaResponse create(CafeteriaRequest req) {
+    public CafeteriaResponse create(@NonNull CafeteriaRequest req) {
         var c = mapper.toEntity(req);
+        c.setCreatedAt(OffsetDateTime.now());
         cafeteriaRepository.save(c);
         return mapper.toResponse(c);
     }
 
     @Override
-    public CafeteriaResponse getById(Long id) {
-        return cafeteriaRepository.findById(id).map(mapper::toResponse).orElseThrow();
+    public CafeteriaResponse getById(@NonNull Long id) {
+        return cafeteriaRepository.findById(id)
+            .filter(x -> x.isActive())
+            .map(mapper::toResponse)
+            .orElseThrow(() -> new NotFoundException("Cafeteria not found"));
+            
     }
 
     @Override
     public Page<CafeteriaResponse> search(String q, Pageable pageable) {
-        Page<co.edu.ustavillavicencio.comeya.model.entity.CafeteriaEntity> p = cafeteriaRepository.findAll(pageable);
-        return new PageImpl<>(p.getContent().stream().map(mapper::toResponse).collect(Collectors.toList()), pageable, p.getTotalElements());
+        Page<CafeteriaEntity> p = cafeteriaRepository.findAll(pageable);
+        return new PageImpl<>(p.getContent()
+            .stream()
+            .filter(x-> x.isActive())
+            .map(mapper::toResponse)
+            .collect(Collectors.toList()), pageable, p.getTotalElements());
+    }
+
+    @Override
+    public CafeteriaResponse getByName(String name) {
+        if (cafeteriaRepository.findByName(name).isEmpty()){
+            throw new NotFoundException("Cafeteria Not Found");
+        }
+        return mapper.toResponse(cafeteriaRepository.findByName(name).get());
+    }
+
+    @Override
+    public CafeteriaResponse update(@NonNull Long id, @NonNull CafeteriaUpdateRequest req) {
+        CafeteriaEntity cafeteria = cafeteriaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Cafeteria not found"));
+        mapper.updateEntityFromRequest(req, cafeteria);
+        cafeteriaRepository.save(cafeteria);
+        return mapper.toResponse(cafeteria);
+    }
+
+    @Override
+    public void delete(@NonNull Long id) {
+        CafeteriaEntity cafeteria = cafeteriaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Cafeteria not found"));
+        cafeteria.setActive(false);
+        cafeteriaRepository.save(cafeteria);
     }
 }

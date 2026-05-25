@@ -2,6 +2,7 @@ package co.edu.ustavillavicencio.comeya.service;
 
 import co.edu.ustavillavicencio.comeya.dto.order.OrderRequest;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderResponse;
+import co.edu.ustavillavicencio.comeya.dto.order.OrderUpdateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
