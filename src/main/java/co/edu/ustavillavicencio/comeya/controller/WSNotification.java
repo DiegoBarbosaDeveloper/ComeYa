@@ -1,25 +1,48 @@
 package co.edu.ustavillavicencio.comeya.controller;
 
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+import co.edu.ustavillavicencio.comeya.dto.notification.NotificationDTO;
+import co.edu.ustavillavicencio.comeya.event.OrderEvent;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import lombok.RequiredArgsConstructor;
+import java.time.OffsetDateTime;
 
 @Controller
 @RequiredArgsConstructor
 public class WSNotification {
 
-    SimpMessagingTemplate messagingTemplate;
+    private final SimpMessagingTemplate messagingTemplate;
 
-    // Enviar notificación a todos los clientes conectados
-    // El mensaje se envía a la ruta "/all/notifications"
-    // El mensaje se recibe en la ruta "/app/application"
-    @MessageMapping("/application")
-    @SendTo("/all/notifications")
-    public String sendNotification(final String message) {
-        return message;
+    @EventListener
+    public void handleOrderEvent(OrderEvent event) {
+        var dto = new NotificationDTO(
+                event.type(),
+                event.orderId(),
+                event.orderNumber(),
+                event.message(),
+                event.status(),
+                OffsetDateTime.now()
+        );
+
+        messagingTemplate.convertAndSend("/all/notifications", dto);
+
+        if (event.customerUsername() != null) {
+            messagingTemplate.convertAndSendToUser(
+                    event.customerUsername(),
+                    "/specific/notifications",
+                    dto
+            );
+        }
+    }
+
+    public void sendToAll(String destination, Object payload) {
+        messagingTemplate.convertAndSend(destination, payload);
+    }
+
+    public void sendToUser(String username, String destination, Object payload) {
+        messagingTemplate.convertAndSendToUser(username, destination, payload);
     }
 
 }
