@@ -2,12 +2,14 @@ package co.edu.ustavillavicencio.comeya.service.impl;
 
 import co.edu.ustavillavicencio.comeya.dto.user.UserRequest;
 import co.edu.ustavillavicencio.comeya.dto.user.UserResponse;
+import co.edu.ustavillavicencio.comeya.dto.user.UserUpdateRequest;
 import co.edu.ustavillavicencio.comeya.exception.BusinessRuleException;
 import co.edu.ustavillavicencio.comeya.mapper.UserMapper;
 import co.edu.ustavillavicencio.comeya.model.entity.UserEntity;
 import co.edu.ustavillavicencio.comeya.model.enums.UserRole;
 import co.edu.ustavillavicencio.comeya.repository.UserRepository;
 import co.edu.ustavillavicencio.comeya.service.UserService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -35,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
         var u = mapper.toEntity(req);
         u.setPassword(passwordEncoder.encode(req.getPassword()));
-        u.setRole(UserRole.CUSTOMER.name());
+        u.setRole(UserRole.CUSTOMER);
         u.setEmail(req.getEmail());
         u.setCreatedAt(OffsetDateTime.now());
         userRepository.save(u);
@@ -43,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse getById(Long id) {
+    public UserResponse getById(@NonNull Long id) {
         return userRepository.findById(id).map(mapper::toResponse).orElseThrow();
     }
 
@@ -67,8 +69,25 @@ public class UserServiceImpl implements UserService {
 
         return UserResponse.builder()
                 .id(user.getId())
-                .username(user.getName())
+                .name(user.getName())
                 .email(user.getEmail())
                 .build();
+    }
+
+    @Override
+    public UserResponse update(Long id, UserUpdateRequest req) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("User not found"));
+        mapper.updateEntityFromRequest(req, user);
+        userRepository.save(user);
+        return mapper.toResponse(user);
+    }
+
+    @Override
+    public void delete(Long id) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("User not found"));
+        user.setActive(false);
+        userRepository.save(user);
     }
 }

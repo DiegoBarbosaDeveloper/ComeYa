@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,16 +31,12 @@ import java.util.Set;
 public class OrderEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usta_orde_id")
     private Long id;
 
     @Column(name = "usta_orde_number", nullable = false, unique = true)
     private String number;
-
-    @ManyToOne
-    @JoinColumn(name = "usta_orde_table_id", nullable = false)
-    private TableEntity tableEntity;
 
     @ManyToOne
     @JoinColumn(name = "usta_orde_customer_id", nullable = false)
@@ -57,6 +54,12 @@ public class OrderEntity {
 
     @Column(name = "usta_orde_created_at", nullable = false)
     private OffsetDateTime createdAt;
+
+    @Column(name = "usta_orde_active", nullable = false)
+    private boolean active;
+
+    @Column(name = "usta_orde_total", nullable = false)
+    private BigDecimal total;
 
     @Builder.Default
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

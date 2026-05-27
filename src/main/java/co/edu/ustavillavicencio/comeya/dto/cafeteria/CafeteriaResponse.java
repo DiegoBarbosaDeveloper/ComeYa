@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 public class CafeteriaResponse {
     private Long id;
     private String name;
-    private String address;
     private boolean open;
+    private boolean servesFood;
     private OffsetDateTime createdAt;
 }

@@ -11,6 +11,5 @@ import lombok.*;
 public class CafeteriaRequest {
     @NotBlank
     private String name;
-
-    private String address;
+    
 }

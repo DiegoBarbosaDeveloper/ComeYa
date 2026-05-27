@@ -6,14 +6,14 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     open-in-view: false
     show-sql: true
     properties:
       hibernate:
         '[format_sql]': true
 
-        
+
   jackson:
     time-zone: UTC
     default-property-inclusion: non_null
@@ -21,12 +21,14 @@ spring:
 server:
   port: 8080
 
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-
 jwt:
   secret: ${JWT_SECRET}
   expiration-ms: ${JWT_EXPIRATION_MS}
+
+wompi:
+  base-url: ${WOMPI_BASE_URL}
+  public-key: ${WOMPI_PUBLIC_KEY}
+  private-key: ${WOMPI_PRIVATE_KEY}
+  integrity-key: ${WOMPI_INTEGRITY_KEY}
+  webhook-secret: ${WOMPI_WEBHOOK_SECRET}
+
