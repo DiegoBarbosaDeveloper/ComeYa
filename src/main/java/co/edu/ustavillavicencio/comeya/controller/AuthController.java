@@ -2,8 +2,10 @@ package co.edu.ustavillavicencio.comeya.controller;
 
 import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
 import co.edu.ustavillavicencio.comeya.dto.auth.AuthResponse;
+import co.edu.ustavillavicencio.comeya.dto.auth.ForgotPasswordRequest;
 import co.edu.ustavillavicencio.comeya.dto.auth.LoginRequest;
 import co.edu.ustavillavicencio.comeya.dto.auth.RegisterRequest;
+import co.edu.ustavillavicencio.comeya.dto.auth.ResetPasswordRequest;
 import co.edu.ustavillavicencio.comeya.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +29,16 @@ public class AuthController {
         return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), authService.login(request)));
     }
 
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponse<Void>> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+        authService.forgotPassword(request);
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), null));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<ApiResponse<Void>> resetPassword(@RequestBody ResetPasswordRequest request) {
+        authService.resetPassword(request);
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), null));
+    }
 
 }
