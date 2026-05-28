@@ -98,7 +98,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderResponse> listAll() {
-        throw new UnsupportedOperationException("Unimplemented method 'listAll'");
+        return orderRepository.findAll().stream()
+                .map(mapper::toResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
