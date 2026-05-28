@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
         assert userDetails != null;
         UserEntity user = userRepository
-                .findByName(userDetails.getUsername())
+                .findByEmail(userDetails.getUsername())
                 .orElseThrow(() ->
                         new RuntimeException("User Not Found")
                 );

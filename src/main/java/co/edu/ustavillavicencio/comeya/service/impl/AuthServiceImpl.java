@@ -60,7 +60,8 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new BusinessRuleException("User not found"));
 
         String token = jwtService.generateToken(
-                user.getEmail()
+                user.getEmail(),
+                user.getRole().name()
         );
 
         return new AuthResponse(token);
@@ -103,7 +104,7 @@ public class AuthServiceImpl implements AuthService {
 
         // Creamos el token
         String token =
-                jwtService.generateToken(user.getEmail());
+                jwtService.generateToken(user.getEmail(), user.getRole().name());
 
         return new AuthResponse(token);
     }
