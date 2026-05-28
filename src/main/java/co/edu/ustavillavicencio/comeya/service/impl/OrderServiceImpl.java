@@ -67,6 +67,16 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity order = orderRepository.findById(id).orElseThrow();
         mapper.updateEntityFromRequest(req, order);
         orderRepository.save(order);
+
+        eventPublisher.publishEvent(new OrderEvent(
+                "UPDATED",
+                order.getId(),
+                order.getNumber(),
+                order.getStatus(),
+                order.getCustomer().getEmail(),
+                "Pedido #" + order.getNumber() + " actualizado"
+        ));
+
         return mapper.toResponse(order);
     }
 
@@ -75,6 +85,15 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity order = orderRepository.findById(id).orElseThrow();
         order.setActive(false);
         orderRepository.save(order);
+
+        eventPublisher.publishEvent(new OrderEvent(
+                "CANCELLED",
+                order.getId(),
+                order.getNumber(),
+                "CANCELLED",
+                order.getCustomer().getEmail(),
+                "Pedido #" + order.getNumber() + " cancelado"
+        ));
     }
 
     @Override
