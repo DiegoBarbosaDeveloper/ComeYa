@@ -73,6 +73,17 @@ public class AuthServiceImpl implements AuthService {
         if (userRepository.existsByEmail(request.email())) {
             throw new BusinessRuleException("User Already Exist");
         }
+        if (request.email() == null || request.password() == null) {
+            throw new BusinessRuleException("Email and password must be provided");
+        }
+
+        if (!request.email().contains("@") || !request.email().contains(".")) {
+            throw new BusinessRuleException("Email must be a valid email address");
+        }
+
+        if (request.password().length() < 8) {
+            throw new BusinessRuleException("Password must be at least 8 characters long");
+        }
 
         // Creamos la entidad del usuario
         UserEntity user = UserEntity.builder()

@@ -5,8 +5,10 @@ import co.edu.ustavillavicencio.comeya.dto.order.OrderResponse;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderUpdateRequest;
 import co.edu.ustavillavicencio.comeya.event.OrderEvent;
 import co.edu.ustavillavicencio.comeya.mapper.OrderMapper;
+import co.edu.ustavillavicencio.comeya.model.entity.FoodEntity;
 import co.edu.ustavillavicencio.comeya.model.entity.OrderEntity;
 import co.edu.ustavillavicencio.comeya.model.entity.UserEntity;
+import co.edu.ustavillavicencio.comeya.repository.FoodRepository;
 import co.edu.ustavillavicencio.comeya.repository.OrderRepository;
 import co.edu.ustavillavicencio.comeya.repository.UserRepository;
 import co.edu.ustavillavicencio.comeya.service.OrderService;
@@ -23,10 +25,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements OrderService {
+public class    OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper mapper;
     private final UserRepository userRepository;
+    private final FoodRepository foodRepository;
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
@@ -34,9 +37,28 @@ public class OrderServiceImpl implements OrderService {
         UserEntity user = userRepository.findByName(username).orElseThrow();
         var o = mapper.toEntity(req);
         o.setCustomer(user);
+
+        // Validar y descontar stock
         if (o.getItems() != null) {
-            o.getItems().forEach(item -> item.setOrder(o));
+            o.getItems().forEach(item -> {
+                item.setOrder(o);
+
+                // Descontar stock de cada producto
+                item.getFoods().forEach(food -> {
+                    FoodEntity product = foodRepository.findById(food.getId())
+                            .orElseThrow(() -> new RuntimeException("Product not found: " + food.getId()));
+
+                    if (product.getStock() < item.getQuantity()) {
+                        throw new RuntimeException("Stock insuficiente para " + product.getName() +
+                                ". Disponible: " + product.getStock() + ", solicitado: " + item.getQuantity());
+                    }
+
+                    product.setStock(product.getStock() - item.getQuantity());
+                    foodRepository.save(product);
+                });
+            });
         }
+
         orderRepository.save(o);
 
         eventPublisher.publishEvent(new OrderEvent(

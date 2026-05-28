@@ -17,7 +17,6 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 )
 public interface ProductMapper {
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "type", ignore = true)
     @Mapping(target = "active", constant = "true")
     @Mapping(target = "menuDays", ignore = true)
     FoodEntity toEntity(ProductRequest req);
