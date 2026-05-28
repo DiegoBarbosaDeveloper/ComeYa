@@ -36,6 +36,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(request ->
                         request                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/ws/**").permitAll()
                                 .requestMatchers("/payments/webhooks/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/me").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole("ADMIN", "STAFF_COCINA", "STAFF_CAJERO")

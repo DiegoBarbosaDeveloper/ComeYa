@@ -28,6 +28,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.OffsetDateTime;
 import java.util.HexFormat;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -99,6 +101,13 @@ public class PaymentServiceImpl implements PaymentService {
 
         payment.setStatus(mapWompiStatus(txn.status()));
         paymentRepository.save(payment);
+    }
+
+    @Override
+    public List<PaymentResponse> listAll() {
+        return paymentRepository.findAll().stream()
+                .map(mapper::toResponse)
+                .collect(Collectors.toList());
     }
 
     @Override

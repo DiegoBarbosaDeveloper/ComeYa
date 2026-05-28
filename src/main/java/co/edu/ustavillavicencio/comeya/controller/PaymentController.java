@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/payments")
 @RequiredArgsConstructor
@@ -22,6 +24,11 @@ public class PaymentController {
     @PostMapping
     public ResponseEntity<ApiResponse <PaymentResponse>> create(@Valid @RequestBody PaymentRequest req) {
         return ResponseEntity.ok(ApiResponse.success(HttpStatus.CREATED.name(), paymentService.create(req)));
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<PaymentResponse>>> listAll() {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), paymentService.listAll()));
     }
 
     @PutMapping("/{id}")
