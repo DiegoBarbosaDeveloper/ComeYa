@@ -1,7 +1,7 @@
 package co.edu.ustavillavicencio.comeya.controller;
 
 import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
-import co.edu.ustavillavicencio.comeya.dto.order.OrderItemRequest;
+import co.edu.ustavillavicencio.comeya.dto.order.CreateOrderItemRequest;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderItemResponse;
 import co.edu.ustavillavicencio.comeya.service.OrderItemService;
 import jakarta.validation.Valid;
@@ -17,9 +17,9 @@ public class OrderItemController {
     private final OrderItemService orderItemService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<OrderItemResponse>> create(@Valid @RequestBody OrderItemRequest req) {
+    public ResponseEntity<ApiResponse<OrderItemResponse>> create(@Valid @RequestBody CreateOrderItemRequest req) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResponse.success(HttpStatus.CREATED.name(), orderItemService.create(req)));
+                .body(ApiResponse.success(HttpStatus.CREATED.name(), orderItemService.createItem(req)));
     }
 
     @GetMapping("/{id}")
@@ -28,8 +28,8 @@ public class OrderItemController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<OrderItemResponse>> update(@PathVariable Long id, @Valid @RequestBody OrderItemRequest req) {
-        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), orderItemService.update(id, req)));
+    public ResponseEntity<ApiResponse<OrderItemResponse>> update(@PathVariable Long id, @Valid @RequestBody CreateOrderItemRequest req) {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), orderItemService.updateItem(id, req)));
     }
 
     @DeleteMapping("/{id}")

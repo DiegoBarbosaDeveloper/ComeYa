@@ -41,6 +41,9 @@ public class FoodEntity {
     @Column(name = "usta_food_price", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "usta_food_stock", nullable = false)
+    private Integer stock;
+
     @Column(name = "usta_food_active", nullable = false)
     private boolean active;
 

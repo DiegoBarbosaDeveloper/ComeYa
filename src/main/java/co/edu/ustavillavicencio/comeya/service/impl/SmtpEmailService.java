@@ -28,7 +28,6 @@ public class SmtpEmailService implements EmailService {
         if (to == null || to.isBlank()) {
             throw new BusinessRuleException("Email must be provided");
         }
-        String resetLink = frontendBaseUrl + "/reset-password?token=" + token;
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
@@ -37,9 +36,7 @@ public class SmtpEmailService implements EmailService {
         }
         message.setSubject("Password reset");
         message.setText(
-                "Password reset token (valid for " + passwordResetTokenTtlMinutes + " minutes): " + token + "\n\n"
-                        + "If you can access the reset page, you may also use this link:\n"
-                        + resetLink
+                "Password reset token (valid for " + passwordResetTokenTtlMinutes + " minutes): " + token
         );
 
         mailSender.send(message);
