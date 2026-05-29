@@ -43,6 +43,10 @@ public class OrderEntity {
     private UserEntity customer;
 
     @ManyToOne
+    @JoinColumn(name = "usta_orde_cafeteria_id")
+    private CafeteriaEntity cafeteria;
+
+    @ManyToOne
     @JoinColumn(name = "usta_orde_payment_id")
     private PaymentEntity payment;
 

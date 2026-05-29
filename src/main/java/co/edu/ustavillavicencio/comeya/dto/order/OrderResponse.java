@@ -19,6 +19,7 @@ public class OrderResponse {
     private String status;
     
     private String client;
+    private String cafeteriaName;
     private BigDecimal total;
     private OffsetDateTime createdAt;
     private List<OrderItemResponse> items;

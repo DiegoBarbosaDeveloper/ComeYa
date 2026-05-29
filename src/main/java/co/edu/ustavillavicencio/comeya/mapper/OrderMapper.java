@@ -38,6 +38,7 @@ public interface OrderMapper {
 
     @Mapping(source = "number", target = "orderNumber")
     @Mapping(source = "customer.name", target = "client")
+    @Mapping(target = "cafeteriaName", expression = "java(order.getCafeteria() != null ? order.getCafeteria().getName() : null)")
     @Mapping(target = "total", expression = "java(calcularTotal(order))")
     OrderResponse toResponse(OrderEntity order);
 

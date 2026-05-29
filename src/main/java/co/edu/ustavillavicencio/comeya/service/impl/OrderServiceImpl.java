@@ -5,9 +5,11 @@ import co.edu.ustavillavicencio.comeya.dto.order.OrderResponse;
 import co.edu.ustavillavicencio.comeya.dto.order.OrderUpdateRequest;
 import co.edu.ustavillavicencio.comeya.event.OrderEvent;
 import co.edu.ustavillavicencio.comeya.mapper.OrderMapper;
+import co.edu.ustavillavicencio.comeya.model.entity.CafeteriaEntity;
 import co.edu.ustavillavicencio.comeya.model.entity.FoodEntity;
 import co.edu.ustavillavicencio.comeya.model.entity.OrderEntity;
 import co.edu.ustavillavicencio.comeya.model.entity.UserEntity;
+import co.edu.ustavillavicencio.comeya.repository.CafeteriaRepository;
 import co.edu.ustavillavicencio.comeya.repository.FoodRepository;
 import co.edu.ustavillavicencio.comeya.repository.OrderRepository;
 import co.edu.ustavillavicencio.comeya.repository.UserRepository;
@@ -30,6 +32,7 @@ public class    OrderServiceImpl implements OrderService {
     private final OrderMapper mapper;
     private final UserRepository userRepository;
     private final FoodRepository foodRepository;
+    private final CafeteriaRepository cafeteriaRepository;
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
@@ -37,6 +40,12 @@ public class    OrderServiceImpl implements OrderService {
         UserEntity user = userRepository.findByEmail(username).orElseThrow();
         var o = mapper.toEntity(req);
         o.setCustomer(user);
+
+        if (req.getCafeteriaId() != null) {
+            CafeteriaEntity cafeteria = cafeteriaRepository.findById(req.getCafeteriaId())
+                    .orElseThrow(() -> new RuntimeException("Cafeteria not found: " + req.getCafeteriaId()));
+            o.setCafeteria(cafeteria);
+        }
 
         // Validar y descontar stock
         if (o.getItems() != null) {
@@ -80,7 +89,7 @@ public class    OrderServiceImpl implements OrderService {
 
     @Override
     public Page<OrderResponse> listByCafeteria(@NonNull Long cafeteriaId, @NonNull Pageable pageable) {
-        Page<OrderEntity> p = orderRepository.findAll(pageable);
+        Page<OrderEntity> p = orderRepository.findByCafeteriaId(cafeteriaId, pageable);
         return new PageImpl<>(p.getContent().stream().map(mapper::toResponse).collect(Collectors.toList()), pageable, p.getTotalElements());
     }
 
