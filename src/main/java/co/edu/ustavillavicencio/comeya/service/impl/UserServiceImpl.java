@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponse create(UserRequest req) {
+    public UserResponse createCustomer(UserRequest req) {
 
         if(userRepository.existsByEmail(req.getEmail())){
             throw new BusinessRuleException("User Already Exist");
@@ -38,6 +38,22 @@ public class UserServiceImpl implements UserService {
         var u = mapper.toEntity(req);
         u.setPassword(passwordEncoder.encode(req.getPassword()));
         u.setRole(UserRole.CUSTOMER);
+        u.setEmail(req.getEmail());
+        u.setCreatedAt(OffsetDateTime.now());
+        userRepository.save(u);
+        return mapper.toResponse(u);
+    }
+
+    @Override
+    public UserResponse create(UserRequest req, UserRole role) {
+
+        if(userRepository.existsByEmail(req.getEmail())){
+            throw new BusinessRuleException("User Already Exist");
+        }
+
+        var u = mapper.toEntity(req);
+        u.setPassword(passwordEncoder.encode(req.getPassword()));
+        u.setRole(role);
         u.setEmail(req.getEmail());
         u.setCreatedAt(OffsetDateTime.now());
         userRepository.save(u);
@@ -62,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
         assert userDetails != null;
         UserEntity user = userRepository
-                .findByName(userDetails.getUsername())
+                .findByEmail(userDetails.getUsername())
                 .orElseThrow(() ->
                         new RuntimeException("User Not Found")
                 );

@@ -1,4 +1,4 @@
-package co.edu.ustavillavicencio.comeya.dto.product;
+package co.edu.ustavillavicencio.comeya.dto.food;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductResponse {
+public class FoodResponse {
     private Long id;
     private String name;
     private String description;

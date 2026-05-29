@@ -1,7 +1,6 @@
-package co.edu.ustavillavicencio.comeya.dto.product;
+package co.edu.ustavillavicencio.comeya.dto.food;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -11,12 +10,13 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductRequest {
+public class FoodUpdateRequest {
     @NotBlank
     private String name;
 
     private String description;
 
-    @NotNull
     private BigDecimal price;
+
+    private Integer stock;
 }

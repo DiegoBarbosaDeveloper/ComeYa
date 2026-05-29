@@ -4,6 +4,9 @@ spring:
   datasource:
     url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      data-source-properties:
+        prepareThreshold: 0
   jpa:
     hibernate:
       ddl-auto: create
@@ -18,12 +21,31 @@ spring:
     time-zone: UTC
     default-property-inclusion: non_null
 
+  mail:
+    host: ${MAIL_HOST:}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 server:
   port: 8080
+  servlet:
+    context-path: /api
 
 jwt:
   secret: ${JWT_SECRET}
   expiration-ms: ${JWT_EXPIRATION_MS}
+
+app:
+  frontend-base-url: ${FRONTEND_BASE_URL:http://localhost:3000}
+  password-reset:
+    token-ttl-minutes: ${PASSWORD_RESET_TTL_MINUTES:15}
 
 wompi:
   base-url: ${WOMPI_BASE_URL}
