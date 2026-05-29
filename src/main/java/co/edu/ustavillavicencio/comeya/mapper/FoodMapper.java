@@ -15,7 +15,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
-public interface ProductMapper {
+public interface FoodMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "active", constant = "true")
     @Mapping(target = "menuDays", ignore = true)
@@ -30,5 +30,6 @@ public interface ProductMapper {
     @Mapping(target = "type", ignore = true)
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "menuDays", ignore = true)
+    @Mapping(target = "stock", source = "req.stock")
     void updateEntityFromRequest(ProductUpdateRequest req, @MappingTarget FoodEntity entity);
 }
