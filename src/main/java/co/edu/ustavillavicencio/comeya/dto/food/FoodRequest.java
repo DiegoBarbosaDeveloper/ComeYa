@@ -1,4 +1,4 @@
-package co.edu.ustavillavicencio.comeya.dto.product;
+package co.edu.ustavillavicencio.comeya.dto.food;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductRequest {
+public class FoodRequest {
     @NotBlank
     private String name;
 

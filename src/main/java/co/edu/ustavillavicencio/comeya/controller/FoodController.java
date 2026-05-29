@@ -1,9 +1,6 @@
 package co.edu.ustavillavicencio.comeya.controller;
 
-import co.edu.ustavillavicencio.comeya.dto.product.ProductRequest;
-import co.edu.ustavillavicencio.comeya.dto.product.ProductResponse;
-import co.edu.ustavillavicencio.comeya.dto.product.ProductUpdateRequest;
-import co.edu.ustavillavicencio.comeya.service.ProductService;
+import co.edu.ustavillavicencio.comeya.service.FoodService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,31 +9,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import co.edu.ustavillavicencio.comeya.dto.ApiResponse;     
+import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
+import co.edu.ustavillavicencio.comeya.dto.food.FoodRequest;
+import co.edu.ustavillavicencio.comeya.dto.food.FoodResponse;
+import co.edu.ustavillavicencio.comeya.dto.food.FoodUpdateRequest;     
 
 @RestController
 @RequestMapping("/products")
 @RequiredArgsConstructor
-public class ProductController {
-    private final ProductService productService;
+public class FoodController {
+    private final FoodService productService;
 
     @PostMapping
-    public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest req) {
+    public ResponseEntity<FoodResponse> create(@Valid @RequestBody FoodRequest req) {
         return ResponseEntity.ok(productService.create(req));
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductResponse>> list(@RequestParam(required = false) String q, Pageable pageable) {
+    public ResponseEntity<Page<FoodResponse>> list(@RequestParam(required = false) String q, Pageable pageable) {
         return ResponseEntity.ok(productService.list(q, pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> get(@PathVariable Long id) {
+    public ResponseEntity<FoodResponse> get(@PathVariable Long id) {
         return ResponseEntity.ok(productService.getById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<ProductResponse>> update(@PathVariable Long id, @Valid @RequestBody ProductUpdateRequest req) {
+    public ResponseEntity<ApiResponse<FoodResponse>> update(@PathVariable Long id, @Valid @RequestBody FoodUpdateRequest req) {
         return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), productService.update(id, req)));
     }
 
