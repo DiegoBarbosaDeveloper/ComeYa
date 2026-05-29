@@ -9,6 +9,6 @@ import co.edu.ustavillavicencio.comeya.dto.auth.ResetPasswordRequest;
 public interface AuthService {
     AuthResponse login(LoginRequest request);
     AuthResponse register(RegisterRequest request);
-    void forgotPassword(ForgotPasswordRequest request);
+    String forgotPassword(ForgotPasswordRequest request);
     void resetPassword(ResetPasswordRequest request);
 }

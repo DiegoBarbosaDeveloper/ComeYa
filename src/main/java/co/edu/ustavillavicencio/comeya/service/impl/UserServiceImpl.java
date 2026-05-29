@@ -100,6 +100,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserResponse updateRol(Long id, UserRole role) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("User not found"));
+        user.setRole(role);
+        userRepository.save(user);
+        return mapper.toResponse(user);
+    }
+
+    @Override
     public void delete(Long id) {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new BusinessRuleException("User not found"));

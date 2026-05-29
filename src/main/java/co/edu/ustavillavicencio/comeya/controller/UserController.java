@@ -2,6 +2,7 @@ package co.edu.ustavillavicencio.comeya.controller;
 
 import co.edu.ustavillavicencio.comeya.dto.ApiResponse;
 import co.edu.ustavillavicencio.comeya.dto.user.UserResponse;
+import co.edu.ustavillavicencio.comeya.dto.user.UserRolRequest;
 import co.edu.ustavillavicencio.comeya.dto.user.UserUpdateRequest;
 import co.edu.ustavillavicencio.comeya.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,11 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<UserResponse>> update(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest req) {
         return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), userService.update(id, req)));
+    }
+
+    @PutMapping("/{id}/rol")
+    public ResponseEntity<ApiResponse<UserResponse>> updateRol(@PathVariable Long id, @Valid @RequestBody UserRolRequest req) {
+        return ResponseEntity.ok(ApiResponse.success(HttpStatus.OK.name(), userService.updateRol(id, req.getRol())));
     }
 
     @DeleteMapping("/{id}")
