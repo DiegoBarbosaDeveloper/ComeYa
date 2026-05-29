@@ -1,8 +1,9 @@
 package co.edu.ustavillavicencio.comeya.service.impl;
 
-import co.edu.ustavillavicencio.comeya.exception.BusinessRuleException;
 import co.edu.ustavillavicencio.comeya.service.EmailService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,8 +11,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class SmtpEmailService implements EmailService {
+
+    private static final Logger log = LoggerFactory.getLogger(SmtpEmailService.class);
 
     private final JavaMailSender mailSender;
 

@@ -1,0 +1,379 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for co.edu.ustavillavicencio:comeya:jar:0.0.1-SNAPSHOT
+[WARNING] 'dependencies.dependency.scope' for org.projectlombok:lombok:jar must be one of [provided, compile, runtime, test, system] but is 'annotationProcessor'. @ line 112, column 17
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] 
+[INFO] ------------------< co.edu.ustavillavicencio:comeya >-------------------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.14:run (default-cli) > test-compile @ comeya >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ comeya ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ comeya ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ comeya ---
+[INFO] skip non existing resourceDirectory C:\Users\julia\Downloads\Fronted-ComeYa\comeya-back-v1\ComeYa\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ comeya ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.5.14:run (default-cli) < test-compile @ comeya <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.14:run (default-cli) @ comeya ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.14)
+
+2026-05-28T23:12:35.546-05:00  INFO 11516 --- [comeya] [  restartedMain] c.e.u.comeya.ComeyaApplication           : Starting ComeyaApplication using Java 25.0.2 with PID 11516 (C:\Users\julia\Downloads\Fronted-ComeYa\comeya-back-v1\ComeYa\target\classes started by julia in C:\Users\julia\Downloads\Fronted-ComeYa\comeya-back-v1\ComeYa)
+2026-05-28T23:12:35.549-05:00  INFO 11516 --- [comeya] [  restartedMain] c.e.u.comeya.ComeyaApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-05-28T23:12:35.600-05:00  INFO 11516 --- [comeya] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-05-28T23:12:35.601-05:00  INFO 11516 --- [comeya] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-05-28T23:12:36.582-05:00  INFO 11516 --- [comeya] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-28T23:12:36.674-05:00  INFO 11516 --- [comeya] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 81 ms. Found 11 JPA repository interfaces.
+2026-05-28T23:12:37.284-05:00  INFO 11516 --- [comeya] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-05-28T23:12:37.295-05:00  INFO 11516 --- [comeya] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-28T23:12:37.297-05:00  INFO 11516 --- [comeya] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.54]
+2026-05-28T23:12:37.334-05:00  INFO 11516 --- [comeya] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2026-05-28T23:12:37.334-05:00  INFO 11516 --- [comeya] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1732 ms
+2026-05-28T23:12:37.655-05:00  INFO 11516 --- [comeya] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-28T23:12:37.717-05:00  INFO 11516 --- [comeya] [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.49.Final
+2026-05-28T23:12:37.761-05:00  INFO 11516 --- [comeya] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-28T23:12:38.012-05:00  INFO 11516 --- [comeya] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-28T23:12:38.043-05:00  INFO 11516 --- [comeya] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-28T23:12:39.398-05:00  INFO 11516 --- [comeya] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5194723c
+2026-05-28T23:12:39.400-05:00  INFO 11516 --- [comeya] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-28T23:12:40.008-05:00  INFO 11516 --- [comeya] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-05-28T23:12:40.981-05:00  INFO 11516 --- [comeya] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    set client_min_messages = WARNING
+Hibernate: 
+    alter table if exists password_reset_tokens 
+       drop constraint if exists FKdq754a32m1buvi7uhe0c41ry
+Hibernate: 
+    alter table if exists usta_menu_days 
+       drop constraint if exists FKf78986nyq903yudon2oaw72dr
+Hibernate: 
+    alter table if exists usta_menu_days 
+       drop constraint if exists FKc6cu38bnkxg69jcf5v18bex10
+Hibernate: 
+    alter table if exists usta_menus 
+       drop constraint if exists FKppefl4ekj9ucgrhdoi56swhrn
+Hibernate: 
+    alter table if exists usta_notifications 
+       drop constraint if exists FK7ktwq72mnsxn6gotkrr75r0t1
+Hibernate: 
+    alter table if exists usta_order_item_foods 
+       drop constraint if exists FKqfr6cx84kqs83syv5g0537y0g
+Hibernate: 
+    alter table if exists usta_order_item_foods 
+       drop constraint if exists FKn3f4ikf8y37y1g2sk9jcpe6sm
+Hibernate: 
+    alter table if exists usta_order_items 
+       drop constraint if exists FKmg7px1r5hh7eqog5rtplwk5j8
+Hibernate: 
+    alter table if exists usta_orders 
+       drop constraint if exists FKgkypc72pb9y1eg99atxyvw04o
+Hibernate: 
+    alter table if exists usta_orders 
+       drop constraint if exists FKr1g5788x6jj78nj2gkfdnmsbb
+Hibernate: 
+    alter table if exists usta_staff_cafeterias 
+       drop constraint if exists FKirlxf8xheuobl59s0lm5ucvvh
+Hibernate: 
+    alter table if exists usta_staff_cafeterias 
+       drop constraint if exists FKfv4esxb281ghcv4t9jbx8paf3
+Hibernate: 
+    drop table if exists password_reset_tokens cascade
+Hibernate: 
+    drop table if exists usta_cafeterias cascade
+Hibernate: 
+    drop table if exists usta_foods cascade
+Hibernate: 
+    drop table if exists usta_menu_days cascade
+Hibernate: 
+    drop table if exists usta_menus cascade
+Hibernate: 
+    drop table if exists usta_notifications cascade
+Hibernate: 
+    drop table if exists usta_order_item_foods cascade
+Hibernate: 
+    drop table if exists usta_order_items cascade
+Hibernate: 
+    drop table if exists usta_orders cascade
+Hibernate: 
+    drop table if exists usta_payments cascade
+Hibernate: 
+    drop table if exists usta_staff_cafeterias cascade
+Hibernate: 
+    drop table if exists usta_users cascade
+Hibernate: 
+    drop sequence if exists password_reset_tokens_seq
+Hibernate: 
+    drop sequence if exists usta_cafeterias_seq
+Hibernate: 
+    drop sequence if exists usta_foods_seq
+Hibernate: 
+    drop sequence if exists usta_menus_seq
+Hibernate: 
+    drop sequence if exists usta_notifications_seq
+Hibernate: 
+    drop sequence if exists usta_order_items_seq
+Hibernate: 
+    drop sequence if exists usta_orders_seq
+Hibernate: 
+    drop sequence if exists usta_payments_seq
+Hibernate: 
+    drop sequence if exists usta_staff_cafeterias_seq
+Hibernate: 
+    drop sequence if exists usta_users_seq
+Hibernate: 
+    create sequence password_reset_tokens_seq start with 1 increment by 50
+Hibernate: 
+    create sequence usta_cafeterias_seq start with 1 increment by 50
+Hibernate: 
+    create sequence usta_foods_seq start with 1 increment by 50
+Hibernate: 
+    create sequence usta_menus_seq start with 1 increment by 50
+Hibernate: 
+    create sequence usta_notifications_seq start with 1 increment by 50
+Hibernate: 
+    create sequence usta_order_items_seq start with 1 increment by 50
+Hibernate: 
+    create sequence usta_orders_seq start with 1 increment by 50
+Hibernate: 
+    create sequence usta_payments_seq start with 1 increment by 50
+Hibernate: 
+    create sequence usta_staff_cafeterias_seq start with 1 increment by 50
+Hibernate: 
+    create sequence usta_users_seq start with 1 increment by 50
+Hibernate: 
+    create table password_reset_tokens (
+        used boolean not null,
+        created_at timestamp(6) with time zone not null,
+        expiry_date timestamp(6) with time zone not null,
+        id bigint not null,
+        used_at timestamp(6) with time zone,
+        user_id bigint not null,
+        token varchar(255) not null unique,
+        primary key (id)
+    )
+Hibernate: 
+    create table usta_cafeterias (
+        usta_cafe_active boolean not null,
+        usta_cafe_open boolean not null,
+        usta_cafe_serves_food boolean not null,
+        usta_cafe_created_at timestamp(6) with time zone not null,
+        usta_cafe_id bigint not null,
+        usta_cafe_name varchar(100) not null,
+        primary key (usta_cafe_id)
+    )
+Hibernate: 
+    create table usta_foods (
+        usta_food_active boolean not null,
+        usta_food_price numeric(38,2) not null,
+        usta_food_stock integer not null,
+        usta_food_id bigint not null,
+        usta_food_name varchar(255) not null,
+        usta_food_type varchar(255) not null,
+        primary key (usta_food_id)
+    )
+Hibernate: 
+    create table usta_menu_days (
+        usta_menu_stock integer not null,
+        usta_menu_food_id bigint not null,
+        usta_menu_menu_id bigint not null,
+        primary key (usta_menu_food_id, usta_menu_menu_id)
+    )
+Hibernate: 
+    create table usta_menus (
+        usta_menu_date date not null,
+        usta_menu_cafeteria_id bigint not null,
+        usta_menu_id bigint not null,
+        primary key (usta_menu_id)
+    )
+Hibernate: 
+    create table usta_notifications (
+        usta_noti_read boolean not null,
+        usta_noti_created_at timestamp(6) with time zone not null,
+        usta_noti_id bigint not null,
+        usta_noti_order_id bigint,
+        usta_noti_user_id bigint,
+        usta_noti_message varchar(255) not null,
+        usta_noti_order_number varchar(255),
+        usta_noti_status varchar(255),
+        usta_noti_type varchar(255) not null,
+        primary key (usta_noti_id)
+    )
+Hibernate: 
+    create table usta_order_item_foods (
+        usta_food_id bigint not null,
+        usta_orde_item_id bigint not null,
+        primary key (usta_food_id, usta_orde_item_id)
+    )
+Hibernate: 
+    create table usta_order_items (
+        usta_orde_item_quantity integer not null,
+        usta_orde_item_id bigint not null,
+        usta_orde_item_order_id bigint not null,
+        usta_orde_item_note varchar(255),
+        primary key (usta_orde_item_id)
+    )
+Hibernate: 
+    create table usta_orders (
+        usta_orde_active boolean not null,
+        usta_orde_reserved boolean not null,
+        usta_orde_total numeric(38,2) not null,
+        usta_orde_created_at timestamp(6) with time zone not null,
+        usta_orde_customer_id bigint not null,
+        usta_orde_id bigint not null,
+        usta_orde_payment_id bigint,
+        usta_orde_number varchar(255) not null unique,
+        usta_orde_status varchar(255) not null,
+        primary key (usta_orde_id)
+    )
+Hibernate: 
+    create table usta_payments (
+        usta_paym_active boolean not null,
+        usta_paym_value numeric(38,2) not null,
+        usta_paym_date timestamp(6) with time zone not null,
+        usta_paym_id bigint not null,
+        usta_paym_method varchar(255) not null check (usta_paym_method in ('CASH','CARD','PSE','NEQUI','BANK_TRANSFER')),
+        usta_paym_status varchar(255) not null check (usta_paym_status in ('PENDING','PAID','CANCELLED')),
+        usta_paym_wompi_txn_id varchar(255),
+        primary key (usta_paym_id)
+    )
+Hibernate: 
+    create table usta_staff_cafeterias (
+        usta_staf_active boolean not null,
+        usta_staf_cafeteria_id bigint not null,
+        usta_staf_id bigint not null,
+        usta_staf_user_id bigint not null,
+        usta_staf_position varchar(255) not null,
+        primary key (usta_staf_id)
+    )
+Hibernate: 
+    create table usta_users (
+        usta_user_active boolean not null,
+        usta_user_created_at timestamp(6) with time zone not null,
+        usta_user_id bigint not null,
+        usta_user_email varchar(255) not null unique,
+        usta_user_name varchar(255) not null,
+        usta_user_password varchar(255) not null,
+        usta_user_role varchar(255) not null check (usta_user_role in ('CUSTOMER','STAFF_COCINA','STAFF_CAJERO','ADMIN')),
+        primary key (usta_user_id)
+    )
+Hibernate: 
+    alter table if exists password_reset_tokens 
+       add constraint FKdq754a32m1buvi7uhe0c41ry 
+       foreign key (user_id) 
+       references usta_users
+Hibernate: 
+    alter table if exists usta_menu_days 
+       add constraint FKf78986nyq903yudon2oaw72dr 
+       foreign key (usta_menu_food_id) 
+       references usta_foods
+Hibernate: 
+    alter table if exists usta_menu_days 
+       add constraint FKc6cu38bnkxg69jcf5v18bex10 
+       foreign key (usta_menu_menu_id) 
+       references usta_menus
+Hibernate: 
+    alter table if exists usta_menus 
+       add constraint FKppefl4ekj9ucgrhdoi56swhrn 
+       foreign key (usta_menu_cafeteria_id) 
+       references usta_cafeterias
+Hibernate: 
+    alter table if exists usta_notifications 
+       add constraint FK7ktwq72mnsxn6gotkrr75r0t1 
+       foreign key (usta_noti_user_id) 
+       references usta_users
+Hibernate: 
+    alter table if exists usta_order_item_foods 
+       add constraint FKqfr6cx84kqs83syv5g0537y0g 
+       foreign key (usta_food_id) 
+       references usta_foods
+Hibernate: 
+    alter table if exists usta_order_item_foods 
+       add constraint FKn3f4ikf8y37y1g2sk9jcpe6sm 
+       foreign key (usta_orde_item_id) 
+       references usta_order_items
+Hibernate: 
+    alter table if exists usta_order_items 
+       add constraint FKmg7px1r5hh7eqog5rtplwk5j8 
+       foreign key (usta_orde_item_order_id) 
+       references usta_orders
+Hibernate: 
+    alter table if exists usta_orders 
+       add constraint FKgkypc72pb9y1eg99atxyvw04o 
+       foreign key (usta_orde_customer_id) 
+       references usta_users
+Hibernate: 
+    alter table if exists usta_orders 
+       add constraint FKr1g5788x6jj78nj2gkfdnmsbb 
+       foreign key (usta_orde_payment_id) 
+       references usta_payments
+Hibernate: 
+    alter table if exists usta_staff_cafeterias 
+       add constraint FKirlxf8xheuobl59s0lm5ucvvh 
+       foreign key (usta_staf_cafeteria_id) 
+       references usta_cafeterias
+Hibernate: 
+    alter table if exists usta_staff_cafeterias 
+       add constraint FKfv4esxb281ghcv4t9jbx8paf3 
+       foreign key (usta_staf_user_id) 
+       references usta_users
+2026-05-28T23:12:48.925-05:00  INFO 11516 --- [comeya] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-28T23:12:49.248-05:00  INFO 11516 --- [comeya] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-05-28T23:12:49.277-05:00  INFO 11516 --- [comeya] [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-28T23:12:50.425-05:00  INFO 11516 --- [comeya] [  restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-05-28T23:12:50.928-05:00  INFO 11516 --- [comeya] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-05-28T23:12:50.974-05:00  INFO 11516 --- [comeya] [  restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-05-28T23:12:50.976-05:00  INFO 11516 --- [comeya] [  restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3e702e65]]
+2026-05-28T23:12:50.977-05:00  INFO 11516 --- [comeya] [  restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-05-28T23:12:50.988-05:00  INFO 11516 --- [comeya] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/api'
+2026-05-28T23:12:50.999-05:00  INFO 11516 --- [comeya] [  restartedMain] c.e.u.comeya.ComeyaApplication           : Started ComeyaApplication in 15.833 seconds (process running for 16.198)
+Hibernate: 
+    select
+        ue1_0.usta_user_id 
+    from
+        usta_users ue1_0 
+    where
+        ue1_0.usta_user_name=? 
+    fetch
+        first ? rows only
+Hibernate: 
+    select
+        nextval('usta_users_seq')
+Hibernate: 
+    insert 
+    into
+        usta_users
+        (usta_user_active, usta_user_created_at, usta_user_email, usta_user_name, usta_user_password, usta_user_role, usta_user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)

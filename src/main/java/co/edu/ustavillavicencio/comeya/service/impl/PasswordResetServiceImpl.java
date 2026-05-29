@@ -8,7 +8,8 @@ import co.edu.ustavillavicencio.comeya.repository.UserRepository;
 import co.edu.ustavillavicencio.comeya.service.EmailService;
 import co.edu.ustavillavicencio.comeya.service.PasswordResetService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,9 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class PasswordResetServiceImpl implements PasswordResetService {
+
+    private static final Logger log = LoggerFactory.getLogger(PasswordResetServiceImpl.class);
 
     private final UserRepository userRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
