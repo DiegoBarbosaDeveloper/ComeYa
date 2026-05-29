@@ -8,6 +8,7 @@ import co.edu.ustavillavicencio.comeya.repository.UserRepository;
 import co.edu.ustavillavicencio.comeya.service.EmailService;
 import co.edu.ustavillavicencio.comeya.service.PasswordResetService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PasswordResetServiceImpl implements PasswordResetService {
 
     private final UserRepository userRepository;
@@ -53,6 +55,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
                     .build();
 
             passwordResetTokenRepository.save(tokenEntity);
+            log.info("Password reset token for {}: {}", normalized, tokenEntity.getToken());
             emailService.sendPasswordResetEmail(normalized, tokenEntity.getToken());
         });
     }
