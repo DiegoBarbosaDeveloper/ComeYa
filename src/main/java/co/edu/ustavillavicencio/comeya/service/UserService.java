@@ -15,6 +15,7 @@ public interface UserService {
     Page<UserResponse> list(Pageable pageable);
     UserResponse me(Authentication authentication);
     UserResponse update(Long id, UserUpdateRequest req);
+    UserResponse updateRol(Long id, UserRole role);
     void delete(Long id);
     UserResponse create(UserRequest req, UserRole role);
 }

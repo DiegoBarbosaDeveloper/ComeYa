@@ -34,7 +34,7 @@ public class    OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponse create(OrderRequest req, String username) {
-        UserEntity user = userRepository.findByName(username).orElseThrow();
+        UserEntity user = userRepository.findByEmail(username).orElseThrow();
         var o = mapper.toEntity(req);
         o.setCustomer(user);
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SmtpEmailService implements EmailService {
 
     private final JavaMailSender mailSender;
@@ -26,19 +27,25 @@ public class SmtpEmailService implements EmailService {
     @Override
     public void sendPasswordResetEmail(String to, String token) {
         if (to == null || to.isBlank()) {
-            throw new BusinessRuleException("Email must be provided");
+            log.warn("sendPasswordResetEmail skipped: empty recipient");
+            return;
         }
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        if (!from.isBlank()) {
-            message.setFrom(from);
-        }
-        message.setSubject("Password reset");
-        message.setText(
-                "Password reset token (valid for " + passwordResetTokenTtlMinutes + " minutes): " + token
-        );
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(to);
+            if (!from.isBlank()) {
+                message.setFrom(from);
+            }
+            message.setSubject("Password reset");
+            message.setText(
+                    "Password reset token (valid for " + passwordResetTokenTtlMinutes + " minutes): " + token
+            );
 
-        mailSender.send(message);
+            mailSender.send(message);
+            log.info("Password reset email sent to {}", to);
+        } catch (Exception e) {
+            log.warn("Failed to send password reset email to {}: {}", to, e.getMessage());
+        }
     }
 }
