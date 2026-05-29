@@ -34,32 +34,37 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
     @Override
     @Transactional
-    public void requestPasswordReset(String email) {
+    public String requestPasswordReset(String email) {
         if (email == null || email.isBlank()) {
-            return;
+            return null;
         }
 
         String normalized = email.trim();
         if (!normalized.contains("@") || !normalized.contains(".")) {
-            return;
+            return null;
         }
 
-        userRepository.findByEmail(normalized).ifPresent(user -> {
-            OffsetDateTime now = OffsetDateTime.now();
-            passwordResetTokenRepository.markAllActiveTokensAsUsedByEmail(normalized, now);
+        var userOpt = userRepository.findByEmail(normalized);
+        if (userOpt.isEmpty()) {
+            return null;
+        }
 
-            PasswordResetTokenEntity tokenEntity = PasswordResetTokenEntity.builder()
-                    .user(user)
-                    .token(UUID.randomUUID().toString())
-                    .createdAt(now)
-                    .expiryDate(now.plusMinutes(passwordResetTokenTtlMinutes))
-                    .used(false)
-                    .build();
+        UserEntity user = userOpt.get();
+        OffsetDateTime now = OffsetDateTime.now();
+        passwordResetTokenRepository.markAllActiveTokensAsUsedByEmail(normalized, now);
 
-            passwordResetTokenRepository.save(tokenEntity);
-            log.info("Password reset token for {}: {}", normalized, tokenEntity.getToken());
-            emailService.sendPasswordResetEmail(normalized, tokenEntity.getToken());
-        });
+        PasswordResetTokenEntity tokenEntity = PasswordResetTokenEntity.builder()
+                .user(user)
+                .token(UUID.randomUUID().toString())
+                .createdAt(now)
+                .expiryDate(now.plusMinutes(passwordResetTokenTtlMinutes))
+                .used(false)
+                .build();
+
+        passwordResetTokenRepository.save(tokenEntity);
+        log.info("Password reset token for {}: {}", normalized, tokenEntity.getToken());
+        emailService.sendPasswordResetEmail(normalized, tokenEntity.getToken());
+        return tokenEntity.getToken();
     }
 
     @Override

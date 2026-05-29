@@ -110,8 +110,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void forgotPassword(@NonNull ForgotPasswordRequest request) {
-        passwordResetService.requestPasswordReset(request.email());
+    public String forgotPassword(@NonNull ForgotPasswordRequest request) {
+        return passwordResetService.requestPasswordReset(request.email());
     }
 
     @Override
