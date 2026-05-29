@@ -24,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse create(@NonNull ProductRequest req) {
         var f = mapper.toEntity(req);
+        f.setActive(true);
         foodRepository.save(f);
         return mapper.toResponse(f);
     }
