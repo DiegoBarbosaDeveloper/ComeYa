@@ -2,7 +2,7 @@ spring:
   application:
     name: comeya
   datasource:
-    url: jdbc:postgresql://aws-1-us-west-1.pooler.supabase.com:6543/postgres?user=postgres.qelgsynddzpexyjghjqa&password=Pintura1!*@12
+    url: "${DATABASE_URL}"
     driver-class-name: org.postgresql.Driver
     hikari:
       data-source-properties:
@@ -39,8 +39,8 @@ server:
     context-path: /api
 
 jwt:
-  secret: 918f69d918d2ffb791e12b3a3f193b1193429a5bac725cd2faffcf25f721a386
-  expiration-ms: 86400000 # 24 horas
+  secret: "${JWT_SECRET}"
+  expiration-ms: "${JWT_EXPIRATION_MS}"
 
 app:
   frontend-base-url: ${FRONTEND_BASE_URL:http://localhost:4200}
@@ -48,9 +48,9 @@ app:
     token-ttl-minutes: ${PASSWORD_RESET_TTL_MINUTES:15}
 
 wompi:
-  base-url: "https://sandbox.wompi.co/v1"
-  public-key: "pub_test_A0guUdUKlpxDDPedplwYFjnHCepv3eCi"
-  private-key: "prv_test_gvGkTcHjnnhmMqhGkD1hwCbr5FejBBWW"
-  integrity-key: "test_integrity_js76z4Vt9GcjUPEuuRUV0qUU3XZoP8t6"
-  webhook-secret: "test_events_VpWLpHMkSR2Nw4u0dxSaucRlnsiFtzql"
+  base-url: "${WOMPI_BASE_URL}"
+  public-key: "${WOMPI_PUBLIC_KEY}"
+  private-key: "${WOMPI_PRIVATE_KEY}"
+  integrity-key: "${WOMPI_INTEGRITY_KEY}"
+  webhook-secret: "${WOMPI_WEBHOOK_SECRET}"
 
